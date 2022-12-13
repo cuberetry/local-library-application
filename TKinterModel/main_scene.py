@@ -16,7 +16,7 @@ class App(tk.Tk):
 
         # label Title
         self.label = tk.Label(text="Local Library", font=('Times New Roman bold', 20), background="#34A2FE")
-        self.label.pack(padx=10, pady=10)
+        self.label.pack(padx=10, pady=20)
 
         self.main = MainView(self)
         self.main.pack(side="top", fill="both", expand=True)
@@ -39,7 +39,7 @@ class MainView(tk.Frame):
         p4 = pg4.Page4(self)
 
         btn_frame = tk.Frame(self)
-        container = tk.Frame(self, bg='gray')
+        container = tk.Frame(self)
         btn_frame.pack(side="top", pady='5')
         container.pack(side="top", fill="both", expand=True)
 
@@ -48,14 +48,14 @@ class MainView(tk.Frame):
         b3 = tk.Button(btn_frame, text="Page 3", command=p3.show)
         b4 = tk.Button(btn_frame, text="Page 4", command=p4.show)
 
-        b1.grid(row=1, column=1)
-        b2.grid(row=1, column=2)
-        b3.grid(row=1, column=3)
-        b4.grid(row=1, column=4)
+        b1.pack(side='left')
+        b2.pack(side='left')
+        b3.pack(side='left')
+        b4.pack(side='left')
 
         p1.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         p2.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         p4.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
 
-
+        p1.show()
