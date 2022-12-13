@@ -21,8 +21,3 @@ class App(tk.Tk):
 
     def button_clicked(self):
         self.destroy()
-
-
-if __name__ == "__main__":
-    App = App()
-    App.mainloop()
