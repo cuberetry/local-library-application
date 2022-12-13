@@ -16,13 +16,13 @@ class App(tk.Tk):
 
         # Create a Button
         self.btn = tk.Button(self, text='exit', bd='5')
-        self.btn['command'] = self.buttton_clicked
+        self.btn['command'] = self.button_clicked
         self.btn.pack(side='top')
 
-    def buttton_clicked(self):
+    def button_clicked(self):
         self.destroy()
 
 
 if __name__ == "__main__":
-  app = App()
-  app.mainloop()
+    App = App()
+    App.mainloop()
