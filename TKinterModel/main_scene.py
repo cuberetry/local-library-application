@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter.messagebox import showinfo
 
 
 class App(tk.Tk):
@@ -16,12 +15,12 @@ class App(tk.Tk):
         self.label.pack(padx=10, pady=10)
 
         # Create a Button
-        self.btn = tk.Button(self, text='Click me !', bd='5')
+        self.btn = tk.Button(self, text='exit', bd='5')
         self.btn['command'] = self.buttton_clicked
         self.btn.pack(side='top')
 
     def buttton_clicked(self):
-        showinfo(showinfo='information', message='hello')
+        self.destroy()
 
 
 if __name__ == "__main__":
