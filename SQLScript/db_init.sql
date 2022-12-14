@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS Local_Library_Schema;
 
 CREATE DATABASE Local_Library_Schema;
 
+USE Local_Library_Schema;
+
 CREATE TABLE MEMBERS(
     mb_id INT(8) PRIMARY KEY AUTO_INCREMENT,
     mb_fname VARCHAR(50) NOT NULL,
