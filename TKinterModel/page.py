@@ -1,9 +1,6 @@
-import tkinter as tk
+frames = {}
 
 
-class Page(tk.Frame):
-    def __init__(self, *args, **kwargs):
-        tk.Frame.__init__(self, *args, **kwargs)
-
-    def show(self):
-        self.lift()
+def show_frame(cont):
+    frame = frames[cont]
+    frame.tkraise()
