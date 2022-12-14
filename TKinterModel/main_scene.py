@@ -1,9 +1,15 @@
 import tkinter as tk
+import TKinterModel.page as p
+import TKinterModel.page0_homepage as pg0
+import TKinterModel.page1_book as pg1
+import TKinterModel.page2_author_publisher as pg2
+import TKinterModel.page3_member as pg3
+import TKinterModel.page4_lending as pg4
 
 
 class App(tk.Tk):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
 
         # configure the root window
         self.title('Local Library Application')
@@ -12,12 +18,28 @@ class App(tk.Tk):
 
         # label Title
         self.label = tk.Label(text="Local Library", font=('Times New Roman bold', 20), background="#34A2FE")
-        self.label.pack(padx=10, pady=10)
+        self.label.pack(padx=10, pady=20)
+
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+        for F in (pg0.Homepage, pg1.Page1, pg2.Page2, pg3.Page3, pg4.Page4):
+            frame = F(container)
+            p.frames[F] = frame
+
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        p.show_frame(pg0.Homepage)
 
         # Create a Button
-        self.btn = tk.Button(self, text='exit', bd='5')
-        self.btn['command'] = self.button_clicked
-        self.btn.pack(side='top')
+        self.btn_exit = tk.Button(self, text='exit', bd='5')
+        self.btn_exit['command'] = self.button_clicked
+        self.btn_exit.pack(side='top')
 
     def button_clicked(self):
         self.destroy()
+
+
