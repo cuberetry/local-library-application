@@ -11,7 +11,7 @@ if __name__ == "__main__":
         user="root"
     )
     cursor = connection.cursor()
-    SQLScript.execute_sql.execute_sql("./SQLScript/db_init.sql", cursor)
+    SQLScript.execute_sql.execute_sql("./SQLScript/sql_init.sql", cursor)
 
     # Remove logs in later version
     # print(connection)
