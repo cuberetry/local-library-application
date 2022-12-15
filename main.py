@@ -1,7 +1,7 @@
 import os
 import mysql.connector
 from TKinterModel.main_scene import *
-import SQLScript.execute_sql
+import SQLScript.sql_execute
 
 if __name__ == "__main__":
     # Establish connection to the database
@@ -11,7 +11,7 @@ if __name__ == "__main__":
         user="root"
     )
     cursor = connection.cursor()
-    SQLScript.execute_sql.execute_sql("./SQLScript/sql_init.sql", cursor)
+    SQLScript.sql_execute.sql_execute("./SQLScript/sql_init.sql", cursor)
 
     # Remove logs in later version
     # print(connection)
