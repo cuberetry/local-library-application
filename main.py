@@ -1,4 +1,3 @@
-import mysql.connector
 from TKinterModel.main_scene import *
 from SQLModel.SQLConnection import *
 
