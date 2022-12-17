@@ -1,4 +1,4 @@
-def sql_execute(filename, cursor):
+def sql_execute(cursor, filename):
     fd = open(filename, 'r')
     sql_file = fd.read()
     fd.close()
