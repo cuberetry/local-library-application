@@ -26,9 +26,9 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        for F in (pg0.Homepage, pg1.Page1, pg2.Page2, pg3.Page3, pg4.Page4):
-            frame = F(container)
-            p.frames[F] = frame
+        for f in (pg0.Homepage, pg1.Page1, pg2.Page2, pg3.Page3, pg4.Page4):
+            frame = f(container)
+            p.frames[f] = frame
 
             frame.grid(row=0, column=0, sticky="nsew")
 

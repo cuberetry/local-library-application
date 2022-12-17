@@ -58,3 +58,13 @@ class SQLConnection:
         except (mysql.connector.errors.ProgrammingError, mysql.connector.errors.IntegrityError, TypeError) as msg:
             print("ERROR", msg)
             return False
+
+    def sql_delete(self, table_name=str, primary_key=int):
+        try:
+            pk_col = self.sql_get_pk(table_name)
+            self.cursor.execute(f"DELETE FROM {table_name} WHERE {pk_col} = {primary_key}")
+            self.connection.commit()
+            return True
+        except mysql.connector.errors.ProgrammingError as msg:
+            print("ERROR", msg)
+            return False
