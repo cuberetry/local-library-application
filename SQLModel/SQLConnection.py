@@ -48,6 +48,21 @@ class SQLConnection:
             print("ERROR", msg)
             return False
 
+    def sql_insert(self, table_name=str, data_dict=dict):
+        try:
+            key_list = []
+            value_list = []
+            for col in data_dict:
+                key_list.append(col)
+                value_list.append(data_dict[col])
+            key_list = ", ".join(key_list)
+            self.cursor.execute(f"INSERT INTO {table_name} ({key_list}) VALUES {tuple(value_list)}")
+            self.connection.commit()
+            return True
+        except (mysql.connector.errors.ProgrammingError, mysql.connector.errors.IntegrityError, TypeError) as msg:
+            print("ERROR", msg)
+            return False
+
     def sql_update(self, table_name=str, primary_key=int, data_dict=dict):
         try:
             pk_col = self.sql_get_pk(table_name)
