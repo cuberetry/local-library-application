@@ -12,4 +12,4 @@ def sql_select(cursor, table_name=str, fields=None):
         return cursor.fetchall()
     except (errors.ProgrammingError, TypeError) as msg:
         print("ERROR", msg)
-        return None
+        return False
