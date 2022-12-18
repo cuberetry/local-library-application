@@ -2,6 +2,10 @@ import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.BookPage.b_main as b_main
+import TKinterModel.BookPage.b_view as b_view
+import TKinterModel.BookPage.b_add as b_add
+import TKinterModel.BookPage.b_edit as b_edit
+import TKinterModel.BookPage.b_remove as b_remove
 import TKinterModel.AuthorPublisherPage.ap_main as ap_main
 import TKinterModel.MemberPage.mb_main as mb_main
 import TKinterModel.LendingPage.l_main as l_main
@@ -26,8 +30,9 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        for f in (sh.Homepage, b_main.BookMainPage, ap_main.AuthorPublisherMainPage,
-                  mb_main.MemberMainPage, l_main.LendingMainPage):
+        for f in (sh.Homepage, b_main.BookMainPage, b_view.BookViewPage, b_add.BookAddPage,
+                  b_edit.BookEditPage, b_remove.BookRemovePage, ap_main.AuthorPublisherMainPage,
+                  mb_main.MemberMainPage, l_main.LendingMainPage, ):
             frame = f(container)
             sf.frames[f] = frame
 
