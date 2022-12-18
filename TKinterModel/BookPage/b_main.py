@@ -1,5 +1,5 @@
 import tkinter as tk
-import TKinterModel.SystemPage.sys_page as p
+import TKinterModel.SystemPage.sys_frame as p
 import TKinterModel.SystemPage.sys_homepage as pg0
 
 
