@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import font as tkf
-import TKinterModel.page as p
-import TKinterModel.page1_book as pg1
-import TKinterModel.page2_author_publisher as pg2
-import TKinterModel.page3_member as pg3
-import TKinterModel.page4_lending as pg4
+import TKinterModel.SystemPage.sys_page as p
+import TKinterModel.BookPage.b_main as pg1
+import TKinterModel.AuthorPublisherPage.ap_main as pg2
+import TKinterModel.MemberPage.m_main as pg3
+import TKinterModel.LendingPage.l_main as pg4
 
 
 class Homepage(tk.Frame):

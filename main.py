@@ -1,4 +1,4 @@
-from TKinterModel.main_scene import *
+from TKinterModel.SystemPage.sys_main_scene import *
 from SQLModel.SQLConnection import *
 
 if __name__ == "__main__":
