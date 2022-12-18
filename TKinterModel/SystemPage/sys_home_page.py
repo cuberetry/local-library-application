@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import font as tkf
-import TKinterModel.SystemPage.sys_frame as p
-import TKinterModel.BookPage.b_main as pg1
-import TKinterModel.AuthorPublisherPage.ap_main as pg2
-import TKinterModel.MemberPage.m_main as pg3
-import TKinterModel.LendingPage.l_main as pg4
+import TKinterModel.SystemPage.sys_frame as sf
+import TKinterModel.BookPage.b_main as b_main
+import TKinterModel.AuthorPublisherPage.ap_main as ap_main
+import TKinterModel.MemberPage.mb_main as mb_main
+import TKinterModel.LendingPage.l_main as l_main
 
 
 class Homepage(tk.Frame):
@@ -16,14 +16,18 @@ class Homepage(tk.Frame):
         label.pack(padx=10, pady=20)
 
         # btn
-        btn1 = tk.Button(self, text='Book', font=def_font, command=lambda: p.show_frame(pg1.Page1), height=2, width=20)
-        btn1.pack(padx=10, pady=20)
+        b_button = tk.Button(self, text='Book', font=def_font,
+                             command=lambda: sf.show_frame(b_main.BookMainPage), height=2, width=20)
+        b_button.pack(padx=10, pady=20)
 
-        btn2 = tk.Button(self, text='Author and Publisher', font=def_font, command=lambda: p.show_frame(pg2.Page2), height=2, width=20)
-        btn2.pack(padx=10, pady=20)
+        ap_button = tk.Button(self, text='Author and Publisher', font=def_font,
+                              command=lambda: sf.show_frame(ap_main.AuthorPublisherMainPage), height=2, width=20)
+        ap_button.pack(padx=10, pady=20)
 
-        btn3 = tk.Button(self, text='Member', font=def_font, command=lambda: p.show_frame(pg3.Page3), height=2, width=20)
-        btn3.pack(padx=10, pady=20)
+        mb_button = tk.Button(self, text='Member', font=def_font,
+                              command=lambda: sf.show_frame(mb_main.MemberMainPage), height=2, width=20)
+        mb_button.pack(padx=10, pady=20)
 
-        btn4 = tk.Button(self, text='Lending', font=def_font, command=lambda: p.show_frame(pg4.Page4), height=2, width=20)
-        btn4.pack(padx=10, pady=20)
+        l_button = tk.Button(self, text='Lending', font=def_font,
+                             command=lambda: sf.show_frame(l_main.LendingMainPage), height=2, width=20)
+        l_button.pack(padx=10, pady=20)

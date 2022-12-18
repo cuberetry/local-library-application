@@ -1,10 +1,10 @@
 import tkinter as tk
-import TKinterModel.SystemPage.sys_frame as p
-import TKinterModel.SystemPage.sys_home_page as pg0
-import TKinterModel.BookPage.b_main as pg1
-import TKinterModel.AuthorPublisherPage.ap_main as pg2
-import TKinterModel.MemberPage.m_main as pg3
-import TKinterModel.LendingPage.l_main as pg4
+import TKinterModel.SystemPage.sys_frame as sf
+import TKinterModel.SystemPage.sys_home_page as sh
+import TKinterModel.BookPage.b_main as b_main
+import TKinterModel.AuthorPublisherPage.ap_main as ap_main
+import TKinterModel.MemberPage.mb_main as mb_main
+import TKinterModel.LendingPage.l_main as l_main
 
 
 class App(tk.Tk):
@@ -26,13 +26,14 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        for f in (pg0.Homepage, pg1.Page1, pg2.Page2, pg3.Page3, pg4.Page4):
+        for f in (sh.Homepage, b_main.BookMainPage, ap_main.AuthorPublisherMainPage,
+                  mb_main.MemberMainPage, l_main.LendingMainPage):
             frame = f(container)
-            p.frames[f] = frame
+            sf.frames[f] = frame
 
             frame.grid(row=0, column=0, sticky="nsew")
 
-        p.show_frame(pg0.Homepage)
+        sf.show_frame(sh.Homepage)
 
         # Create a Button
         self.btn_exit = tk.Button(self, text='exit', bd='5')
