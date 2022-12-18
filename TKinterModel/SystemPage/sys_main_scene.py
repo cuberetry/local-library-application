@@ -7,6 +7,12 @@ import TKinterModel.BookPage.b_add as b_add
 import TKinterModel.BookPage.b_edit as b_edit
 import TKinterModel.BookPage.b_remove as b_remove
 import TKinterModel.AuthorPublisherPage.ap_main as ap_main
+import TKinterModel.AuthorPublisherPage.a_view as a_view
+import TKinterModel.AuthorPublisherPage.a_add as a_add
+import TKinterModel.AuthorPublisherPage.a_remove as a_remove
+import TKinterModel.AuthorPublisherPage.p_view as p_view
+import TKinterModel.AuthorPublisherPage.p_add as p_add
+import TKinterModel.AuthorPublisherPage.p_remove as p_remove
 import TKinterModel.MemberPage.mb_main as mb_main
 import TKinterModel.LendingPage.l_main as l_main
 
@@ -32,6 +38,8 @@ class App(tk.Tk):
 
         for f in (sh.Homepage, b_main.BookMainPage, b_view.BookViewPage, b_add.BookAddPage,
                   b_edit.BookEditPage, b_remove.BookRemovePage, ap_main.AuthorPublisherMainPage,
+                  a_view.AuthorViewPage, a_add.AuthorAddPage, a_remove.AuthorRemovePage,
+                  p_view.PublisherViewPage, p_add.PublisherAddPage, p_remove.PublisherRemovePage,
                   mb_main.MemberMainPage, l_main.LendingMainPage, ):
             frame = f(container)
             sf.frames[f] = frame
