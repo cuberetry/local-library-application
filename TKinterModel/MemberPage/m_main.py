@@ -1,6 +1,6 @@
 import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as p
-import TKinterModel.SystemPage.sys_homepage as pg0
+import TKinterModel.SystemPage.sys_home_page as pg0
 
 
 class Page3(tk.Frame):
