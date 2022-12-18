@@ -19,6 +19,9 @@ import TKinterModel.MemberPage.mb_add as mb_add
 import TKinterModel.MemberPage.mb_edit as mb_edit
 import TKinterModel.MemberPage.mb_remove as mb_remove
 import TKinterModel.LendingPage.l_main as l_main
+import TKinterModel.LendingPage.l_view as l_view
+import TKinterModel.LendingPage.l_add as l_add
+import TKinterModel.LendingPage.l_edit as l_edit
 
 
 class App(tk.Tk):
@@ -45,7 +48,8 @@ class App(tk.Tk):
                   a_view.AuthorViewPage, a_add.AuthorAddPage, a_remove.AuthorRemovePage,
                   p_view.PublisherViewPage, p_add.PublisherAddPage, p_remove.PublisherRemovePage,
                   mb_main.MemberMainPage, mb_view.MemberViewPage, mb_add.MemberAddPage,
-                  mb_edit.MemberEditPage, mb_remove.MemberRemovePage, l_main.LendingMainPage):
+                  mb_edit.MemberEditPage, mb_remove.MemberRemovePage, l_main.LendingMainPage,
+                  l_view.LendingViewPage, l_add.LendingAddPage, l_edit.LendingEditPage):
             frame = f(container)
             sf.frames[f] = frame
 
