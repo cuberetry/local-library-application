@@ -3,7 +3,8 @@ from SQLModel.SQLConnection import *
 
 if __name__ == "__main__":
     # Establish connection to the database
-    sql_connection = SQLConnection("localhost", "3306", "root", "Local_Library_Schema", False)
+    sql_connection = SQLConnection("localhost", "3306", "root", "Local_Library_Schema", True)
+    sql_connection.sql_insert("BOOKS", {"b_name": 'tryy'})
 
     # Tkinter mainloop
     app = App()

@@ -5,6 +5,12 @@ import TKinterModel.AuthorPublisherPage.ap_main as apm
 import __main__ as m
 
 
+def p_add(p_name_e):
+    p_name = p_name_e.get()
+    print(p_name, type(p_name))
+    m.sql_connection.sql_insert("BOOKS", {"b_name": 'tryy'})
+
+
 class PublisherAddPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
@@ -23,9 +29,5 @@ class PublisherAddPage(tk.Frame):
         p_name_e = tk.Entry(self)
         p_name_e.pack(padx=10, pady=10)
 
-        p_name = p_name_e.get()
-        m.sql_connection.sql_insert("PUBLISHERS", {"b_name": "Harry Potter Vol.1", "b_desc": "Test"})
-
-
-
-
+        p_submit = tk.Button(self, text='submit', command=lambda: p_add(p_name_e))
+        p_submit.pack(padx=10, pady=20)
