@@ -8,7 +8,7 @@ import __main__ as m
 def p_add(p_name_e):
     p_name = p_name_e.get()
     print(p_name, type(p_name))
-    m.sql_connection.sql_insert("BOOKS", {"b_name": 'tryy'})
+    m.sql_connection.sql_insert("PUBLISHER", {"p_name": p_name})
 
 
 class PublisherAddPage(tk.Frame):
