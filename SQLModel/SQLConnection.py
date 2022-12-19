@@ -83,3 +83,6 @@ class SQLConnection:
         except mysql.connector.errors.ProgrammingError as msg:
             print("ERROR", msg)
             return False
+
+    def close(self):
+        self.connection.close()
