@@ -56,10 +56,7 @@ class SQLConnection:
                 key_list.append(col)
                 value_list.append(data_dict[col])
             key_list = ", ".join(key_list)
-            if len(value_list) == 1:
-                self.cursor.execute(f"INSERT INTO {table_name} ({key_list}) VALUES ('{value_list[0]}')")
-            else:
-                self.cursor.execute(f"INSERT INTO {table_name} ({key_list}) VALUES {tuple(value_list)}")
+            self.cursor.execute(f"INSERT INTO {table_name} ({key_list}) VALUES {tuple(value_list)}")
             self.connection.commit()
             return True
         except (mysql.connector.errors.ProgrammingError, mysql.connector.errors.IntegrityError, TypeError) as msg:
