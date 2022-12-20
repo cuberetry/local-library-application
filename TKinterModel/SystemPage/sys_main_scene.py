@@ -5,7 +5,6 @@ import TKinterModel.BookPage.b_main as b_main
 import TKinterModel.BookPage.b_view as b_view
 import TKinterModel.BookPage.b_add as b_add
 import TKinterModel.BookPage.b_edit as b_edit
-import TKinterModel.BookPage.b_remove as b_remove
 import TKinterModel.AuthorPublisherPage.ap_main as ap_main
 import TKinterModel.AuthorPublisherPage.a_view as a_view
 import TKinterModel.AuthorPublisherPage.a_add as a_add
@@ -43,13 +42,13 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        for f in (sh.Homepage, b_main.BookMainPage, b_view.BookViewPage, b_add.BookAddPage,
-                  b_edit.BookEditPage, b_remove.BookRemovePage, ap_main.AuthorPublisherMainPage,
-                  a_view.AuthorViewPage, a_add.AuthorAddPage, a_remove.AuthorRemovePage,
-                  p_view.PublisherViewPage, p_add.PublisherAddPage, p_remove.PublisherRemovePage,
-                  mb_main.MemberMainPage, mb_view.MemberViewPage, mb_add.MemberAddPage,
-                  mb_edit.MemberEditPage, mb_remove.MemberRemovePage, l_main.LendingMainPage,
-                  l_view.LendingViewPage, l_add.LendingAddPage, l_edit.LendingEditPage):
+        for f in (sh.Homepage, b_main.BookMainPage, b_view.BookViewPage, b_add.BookAddPage, b_edit.BookEditPage,
+                  ap_main.AuthorPublisherMainPage, a_view.AuthorViewPage, a_add.AuthorAddPage,
+                  a_remove.AuthorRemovePage, p_view.PublisherViewPage, p_add.PublisherAddPage,
+                  p_remove.PublisherRemovePage, mb_main.MemberMainPage, mb_view.MemberViewPage,
+                  mb_add.MemberAddPage, mb_edit.MemberEditPage, mb_remove.MemberRemovePage,
+                  l_main.LendingMainPage, l_view.LendingViewPage, l_add.LendingAddPage,
+                  l_edit.LendingEditPage):
             frame = f(container)
             sf.frames[f] = frame
 
@@ -58,7 +57,7 @@ class App(tk.Tk):
         sf.show_frame(sh.Homepage)
 
         # Create a Button
-        self.btn_exit = tk.Button(self, text='exit', bd='5')
+        self.btn_exit = tk.Button(self, text='exit', bd='15')
         self.btn_exit['command'] = self.button_clicked
         self.btn_exit.pack(side='top')
 
