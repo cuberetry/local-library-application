@@ -4,7 +4,7 @@ import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.AuthorPublisherPage.ap_main as apm
 import __main__ as m
 
-def set_text_by_button(fn_entry, ln_entry):
+def add_to_SQL(fn_entry, ln_entry):
     a_fname = fn_entry.get()
     a_lname = ln_entry.get()
 
@@ -37,5 +37,5 @@ class AuthorAddPage(tk.Frame):
         author_ln_entry = tk.Entry(self)
         author_ln_entry.pack(padx=10, pady=2)
 
-        submit_button=tk.Button(self ,text = 'Submit', command=lambda:set_text_by_button(author_fn_entry, author_ln_entry))
+        submit_button=tk.Button(self ,text = 'Submit', command=lambda:add_to_SQL(author_fn_entry, author_ln_entry))
         submit_button.pack(padx=10, pady=20)
