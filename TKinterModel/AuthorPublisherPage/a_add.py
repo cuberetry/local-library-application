@@ -4,38 +4,39 @@ import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.AuthorPublisherPage.ap_main as apm
 import __main__ as m
 
-def add_to_SQL(fn_entry, ln_entry):
-    a_fname = fn_entry.get()
-    a_lname = ln_entry.get()
-
-    # Insert to SQL
-    m.sql_connection.sql_insert('AUTHOR', {'a_fname':a_fname,'a_lname':a_lname})
-
-    # Empty input field
-    fn_entry.delete(0,"end")
-    ln_entry.delete(0,"end")
     
 class AuthorAddPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
-        home_button = tk.Button(self, text='Homepage',
+        self.home_button = tk.Button(self, text='Homepage',
                                 command=lambda: sf.show_frame(sh.Homepage))
-        home_button.pack(padx=10, pady=20)
-        book_button = tk.Button(self, text='Author/Publisher Page',
+        self.home_button.pack(padx=10, pady=20)
+        self.book_button = tk.Button(self, text='Author/Publisher Page',
                                 command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
-        book_button.pack(padx=10, pady=20)
+        self.book_button.pack(padx=10, pady=20)
 
-        author_fn_label = tk.Label(self, text="Add Author First Name")
-        author_fn_label.pack(padx=10, pady=2)
+        self.author_fn_label = tk.Label(self, text="Add Author First Name")
+        self.author_fn_label.pack(padx=10, pady=2)
 
-        author_fn_entry = tk.Entry(self)
-        author_fn_entry.pack(padx=10, pady=2)
+        self.author_fn_entry = tk.Entry(self)
+        self.author_fn_entry.pack(padx=10, pady=2)
 
-        author_ln_label = tk.Label(self, text="Add Author Last Name")
-        author_ln_label.pack(padx=10, pady=2)
+        self.author_ln_label = tk.Label(self, text="Add Author Last Name")
+        self.author_ln_label.pack(padx=10, pady=2)
 
-        author_ln_entry = tk.Entry(self)
-        author_ln_entry.pack(padx=10, pady=2)
+        self.author_ln_entry = tk.Entry(self)
+        self.author_ln_entry.pack(padx=10, pady=2)
 
-        submit_button=tk.Button(self ,text = 'Submit', command=lambda:add_to_SQL(author_fn_entry, author_ln_entry))
-        submit_button.pack(padx=10, pady=20)
+        self.submit_button=tk.Button(self ,text = 'Submit', command=lambda:self.add_to_SQL())
+        self.submit_button.pack(padx=10, pady=20)
+
+    def add_to_SQL(self):
+        a_fname = self.author_fn_entry.get()
+        a_lname = self.author_ln_entry.get()
+
+        # Insert to SQL
+        m.sql_connection.sql_insert('AUTHOR', {'a_fname':a_fname,'a_lname':a_lname})
+
+        # Empty input field
+        self.author_fn_entry.delete(0,"end")
+        self.author_ln_entry.delete(0,"end")
