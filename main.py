@@ -8,3 +8,6 @@ if __name__ == "__main__":
     # Tkinter mainloop
     app = App()
     app.mainloop()
+
+    # Close connection to the database
+    sql_connection.close()
