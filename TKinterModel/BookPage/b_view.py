@@ -17,9 +17,6 @@ class BookViewPage(tk.Frame):
         book_button = tk.Button(self, text='Book Page', command=lambda: sf.show_frame(bm.BookMainPage))
         book_button.pack(padx=10, pady=20)
 
-        label = tk.Label(self, text="This is book view page")
-        label.pack(padx=10, pady=20)
-
         refresh_button = tk.Button(self, text='Refresh', command=lambda: self.refresh())
         refresh_button.pack(padx=10, pady=20)
         next_button = tk.Button(self, text='Next', command=lambda: self.next_page())
