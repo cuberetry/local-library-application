@@ -32,7 +32,7 @@ CREATE TABLE BOOKS(
     b_id INT(8) PRIMARY KEY AUTO_INCREMENT,
     b_name VARCHAR(50) NOT NULL,
     b_desc VARCHAR(200),
-    b_status BOOLEAN,
+    b_status BOOLEAN DEFAULT TRUE,
     a_id INT(8),
     FOREIGN KEY(a_id) REFERENCES AUTHOR(a_id),
     p_id INT(8),
