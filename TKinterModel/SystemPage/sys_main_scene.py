@@ -8,6 +8,7 @@ import TKinterModel.BookPage.b_edit as b_edit
 import TKinterModel.AuthorPublisherPage.ap_main as ap_main
 import TKinterModel.AuthorPublisherPage.a_view as a_view
 import TKinterModel.AuthorPublisherPage.a_add as a_add
+import TKinterModel.AuthorPublisherPage.a_edit as a_edit
 import TKinterModel.AuthorPublisherPage.a_remove as a_remove
 import TKinterModel.AuthorPublisherPage.p_view as p_view
 import TKinterModel.AuthorPublisherPage.p_add as p_add
@@ -33,7 +34,8 @@ class App(tk.Tk):
         self.attributes('-fullscreen', True)
 
         # label Title
-        self.label = tk.Label(text="Local Library", font=('Times New Roman bold', 20), background="#34A2FE")
+        self.label = tk.Label(text="Local Library", font=(
+            'Times New Roman bold', 20), background="#34A2FE")
         self.label.pack(padx=10, pady=20)
 
         container = tk.Frame(self)
@@ -43,7 +45,7 @@ class App(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         for f in (sh.Homepage, b_main.BookMainPage, b_view.BookViewPage, b_add.BookAddPage, b_edit.BookEditPage,
-                  ap_main.AuthorPublisherMainPage, a_view.AuthorViewPage, a_add.AuthorAddPage,
+                  ap_main.AuthorPublisherMainPage, a_view.AuthorViewPage, a_add.AuthorAddPage, a_edit.AuthorEditPage,
                   a_remove.AuthorRemovePage, p_view.PublisherViewPage, p_add.PublisherAddPage,
                   p_remove.PublisherRemovePage, mb_main.MemberMainPage, mb_view.MemberViewPage,
                   mb_add.MemberAddPage, mb_edit.MemberEditPage, mb_remove.MemberRemovePage,
@@ -63,5 +65,3 @@ class App(tk.Tk):
 
     def button_clicked(self):
         self.destroy()
-
-
