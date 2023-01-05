@@ -1,7 +1,7 @@
 import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
-import TKinterModel.AuthorPublisherPage.ap_main as apm
+import TKinterModel.AuthorPublisherPage.p_view as pv
 import __main__ as m
 
 
@@ -10,7 +10,7 @@ class PublisherEditPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.home_button = tk.Button(self, text='Homepage', command=lambda: sf.show_frame(sh.Homepage))
         self.home_button.pack(padx=10, pady=20)
-        self.publisher_button = tk.Button(self, text='Publisher Page', command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
+        self.publisher_button = tk.Button(self, text='Publisher Page', command=lambda: sf.show_frame(pv.PublisherViewPage))
         self.publisher_button.pack(padx=10, pady=20)
 
         # Edit name
@@ -32,3 +32,5 @@ class PublisherEditPage(tk.Frame):
         if self.p_name_entry.get() != '':
             edit_dict["p_name"] = self.p_name_entry.get()
         m.sql_connection.sql_update("PUBLISHER", self.target['values'][0], edit_dict)
+        # Empty input field
+        self.p_name_entry.delete(0, "end")

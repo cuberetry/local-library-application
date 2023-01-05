@@ -10,6 +10,7 @@ import TKinterModel.AuthorPublisherPage.a_view as a_view
 import TKinterModel.AuthorPublisherPage.a_add as a_add
 import TKinterModel.AuthorPublisherPage.a_remove as a_remove
 import TKinterModel.AuthorPublisherPage.p_view as p_view
+import TKinterModel.AuthorPublisherPage.p_edit as p_edit
 import TKinterModel.AuthorPublisherPage.p_add as p_add
 import TKinterModel.AuthorPublisherPage.p_remove as p_remove
 import TKinterModel.MemberPage.mb_main as mb_main
@@ -44,7 +45,7 @@ class App(tk.Tk):
 
         for f in (sh.Homepage, b_main.BookMainPage, b_view.BookViewPage, b_add.BookAddPage, b_edit.BookEditPage,
                   ap_main.AuthorPublisherMainPage, a_view.AuthorViewPage, a_add.AuthorAddPage,
-                  a_remove.AuthorRemovePage, p_view.PublisherViewPage, p_add.PublisherAddPage,
+                  a_remove.AuthorRemovePage, p_view.PublisherViewPage, p_edit.PublisherEditPage, p_add.PublisherAddPage,
                   p_remove.PublisherRemovePage, mb_main.MemberMainPage, mb_view.MemberViewPage,
                   mb_add.MemberAddPage, mb_edit.MemberEditPage, mb_remove.MemberRemovePage,
                   l_main.LendingMainPage, l_view.LendingViewPage, l_add.LendingAddPage,
