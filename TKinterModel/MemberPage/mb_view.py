@@ -14,8 +14,8 @@ class MemberViewPage(tk.Frame):
 
         home_button = tk.Button(self, text='Homepage', command=lambda: sf.show_frame(sh.Homepage))
         home_button.pack(padx=10, pady=20)
-        book_button = tk.Button(self, text='Member Page', command=lambda: sf.show_frame(mm.MemberMainPage))
-        book_button.pack(padx=10, pady=20)
+        member_button = tk.Button(self, text='Member Page', command=lambda: sf.show_frame(mm.MemberMainPage))
+        member_button.pack(padx=10, pady=20)
 
         refresh_button = tk.Button(self, text='Refresh', command=lambda: self.refresh())
         refresh_button.pack(padx=10, pady=20)
@@ -30,7 +30,7 @@ class MemberViewPage(tk.Frame):
         edit_button.pack(padx=0, pady=0, side=tk.BOTTOM)
 
         # Init DB connection and table
-        self.book_list = m.sql_connection.sql_select("BOOKS")
+        self.member_list = m.sql_connection.sql_select("MEMBERS")
         self.columns = ["mb_id", "mb_fname", "mb_lname", "mb_age", "mb_birthday", "mb_phone", "mb_email",
                         "mb_national_id", "mb_passport_id", "mb_address"]
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
@@ -39,12 +39,12 @@ class MemberViewPage(tk.Frame):
         self.update_table()
 
     def update_table(self):
-        self.book_list = m.sql_connection.sql_select("MEMBERS")
+        self.member_list = m.sql_connection.sql_select("MEMBERS")
         self.table.delete(*self.table.get_children())
         for i in range(self.cur_page * 25, (self.cur_page * 25) + 25):
-            if i > len(self.book_list) - 1:
+            if i > len(self.member_list) - 1:
                 break
-            self.table.insert("", 'end', values=self.book_list[i])
+            self.table.insert("", 'end', values=self.member_list[i])
         self.table.pack(fill="both", expand=True)
 
     def refresh(self):
@@ -52,7 +52,7 @@ class MemberViewPage(tk.Frame):
         self.update_table()
 
     def next_page(self):
-        if self.cur_page < len(self.book_list) // 25:
+        if self.cur_page < len(self.member_list) // 25:
             self.cur_page += 1
         self.update_table()
 

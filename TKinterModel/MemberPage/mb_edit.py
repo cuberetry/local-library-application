@@ -53,6 +53,14 @@ class MemberEditPage(tk.Frame):
         self.mb_phone_entry = tk.Entry(self, textvariable=self.mb_phone)
         self.mb_phone_entry.pack(padx=10, pady=2)
 
+        # Edit member email
+        self.mb_email_label = tk.Label(self, text="Edit Member email")
+        self.mb_email_label.pack(padx=10, pady=2)
+
+        self.mb_email = tk.StringVar()
+        self.mb_email_entry = tk.Entry(self, textvariable=self.mb_email)
+        self.mb_email_entry.pack(padx=10, pady=2)
+
         # Edit member national id
         self.mb_national_id_label = tk.Label(self, text="Edit Member National ID")
         self.mb_national_id_label.pack(padx=10, pady=2)
@@ -93,6 +101,10 @@ class MemberEditPage(tk.Frame):
             edit_dict["mb_age"] = self.mb_age_entry.get()
         if self.mb_birthday_entry.get() != '':
             edit_dict["mb_birthday"] = self.mb_birthday_entry.get()
+        if self.mb_phone_entry.get() != '':
+            edit_dict["mb_phone"] = self.mb_phone_entry.get()
+        if self.mb_email_entry.get() != '':
+            edit_dict["mb_email"] = self.mb_email_entry.get()
         if self.mb_national_id_entry.get() != '':
             edit_dict["mb_national_id"] = self.mb_national_id_entry.get()
         if self.mb_passport_id_entry.get() != '':
@@ -100,3 +112,13 @@ class MemberEditPage(tk.Frame):
         if self.mb_address_entry.get() != '':
             edit_dict["mb_address"] = self.mb_address_entry.get()
         m.sql_connection.sql_update("MEMBERS", self.target['values'][0], edit_dict)
+        # Empty input field
+        self.mb_fname_entry.delete(0, "end")
+        self.mb_lname_entry.delete(0, "end")
+        self.mb_age_entry.delete(0, "end")
+        self.mb_birthday_entry.delete(0, "end")
+        self.mb_phone_entry.delete(0, "end")
+        self.mb_email_entry.delete(0, "end")
+        self.mb_national_id_entry.delete(0, "end")
+        self.mb_passport_id_entry.delete(0, "end")
+        self.mb_address_entry.delete(0, "end")
