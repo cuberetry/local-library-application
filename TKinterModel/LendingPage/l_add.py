@@ -83,6 +83,8 @@ class LendingAddPage(tk.Frame):
         # Empty input field
         self.book_id_entry.delete(0, "end")
         self.member_id_entry.delete(0, "end")
+        self.error_msg = ""
+        self.error_label.config(text=self.error_msg)
 
         # Return user to lending page
         sf.show_frame(lv.LendingViewPage)
