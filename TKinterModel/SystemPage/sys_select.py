@@ -1,0 +1,62 @@
+import tkinter as tk
+from tkinter import ttk
+import TKinterModel.SystemPage.sys_frame as sf
+import __main__ as m
+
+
+class SelectionPage(tk.Frame):
+    def __init__(self, parent):
+        tk.Frame.__init__(self, parent)
+        self.target = None
+        self.prev_page = None
+        self.db_table = None
+        self.list = None
+        self.cur_page = 0
+        self.label = None
+
+        # Prev page button
+        self.home_button = tk.Button(self, text='Previous Page', command=lambda: sf.show_frame(self.prev_page))
+        self.home_button.pack(padx=10, pady=20)
+
+        # Confirm button
+        self.select_button = tk.Button(self, text='Confirm', command=lambda: self.select_item())
+        self.select_button.pack(padx=0, pady=0, side=tk.BOTTOM)
+
+        # Init DB connection and table
+        self.columns = None
+        self.table = None
+
+    def refresh(self):
+        self.columns = None
+        if self.db_table == 'BOOKS':
+            self.columns = ["ID", "Name", "Description", "Book Status", "Author ID", "Publisher ID"]
+            self.list = m.sql_connection.sql_select(self.db_table)
+        elif self.db_table == 'MEMBERS':
+            self.columns = ["ID", "Name", "Surname", "Age", "Phone", "E-mail"]
+            self.list = m.sql_connection.sql_select(self.db_table, ('mb_id', 'mb_fname', 'mb_lname',
+                                                                    'mb_age', 'mb_phone', 'mb_email'))
+        self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
+        for col in self.columns:
+            self.table.heading(col, text=col.title())
+        self.table.delete(*self.table.get_children())
+        for i in range(self.cur_page * 25, (self.cur_page * 25) + 25):
+            if i > len(self.list) - 1:
+                break
+            self.table.insert("", 'end', values=self.list[i])
+        self.table.place(x=125, y=200)
+
+    def select_item(self):
+        if self.db_table == 'BOOKS':
+            sf.frames[self.prev_page].tg_book = self.table.item(self.table.focus())
+            self.label.config(text=sf.frames[self.prev_page].tg_book['values'][1])
+        if self.db_table == 'MEMBERS':
+            sf.frames[self.prev_page].tg_member = self.table.item(self.table.focus())
+            self.label.config(text=sf.frames[self.prev_page].tg_member['values'][1] + " " + sf.frames[self.prev_page].tg_member['values'][2])
+        sf.show_frame(self.prev_page)
+        self.target = None
+        self.prev_page = None
+        self.db_table = None
+        self.list = None
+        self.cur_page = 0
+        self.table = None
+        self.label = None
