@@ -2,6 +2,7 @@ import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.BookPage.b_main as bm
+import TKinterModel.BookPage.b_view as bv
 import __main__ as m
 
 
@@ -14,9 +15,6 @@ class BookAddPage(tk.Frame):
         book_button = tk.Button(self, text='Book Page',
                                 command=lambda: sf.show_frame(bm.BookMainPage))
         book_button.pack(padx=10, pady=20)
-
-        label = tk.Label(self, text="This is book add page")
-        label.pack(padx=10, pady=20)
 
         self.book_name_label = tk.Label(self, text="Add Book Name*")
         self.book_name_label.pack(padx=10, pady=2)
@@ -57,13 +55,14 @@ class BookAddPage(tk.Frame):
         pub_id = self.publisher_id_entry.get()
 
         # Check if Book Name is empty
-        if len(bk_name) <= 0 or len(auth_id) <= 0 or len(pub_id) <= 0:
-            self.error_label.config(
-                text="Please fill the all the required field(s)")
+        if bk_name == '' or auth_id == '' or pub_id == '':
+            self.error_msg = "Please fill all the required field(s)!"
+            self.error_label.config(text=self.error_msg)
             return
         # Limit Book Description input characters
-        elif len(bk_des) > 201:
-            self.error_label.config(text="Text exceeded 200 characters")
+        elif len(bk_des) > 200:
+            self.error_msg = "Text exceeded 200 characters"
+            self.error_label.config(text=self.error_msg)
             return
         # Clear error msg
         else:
@@ -78,3 +77,7 @@ class BookAddPage(tk.Frame):
         # Insert to SQL
         m.sql_connection.sql_insert(
             'BOOKS', {'b_name': bk_name, 'b_desc': bk_des, 'a_id': auth_id, 'p_id': pub_id})
+
+        # Return user to book page
+        sf.frames[bv.BookViewPage].refresh()
+        sf.show_frame(bv.BookViewPage)
