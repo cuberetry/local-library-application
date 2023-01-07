@@ -1,3 +1,5 @@
+from datetime import datetime
+from datetime import date
 from TKinterModel.SystemPage.sys_main_scene import *
 from SQLModel.SQLConnection import *
 import user_setting
@@ -12,7 +14,11 @@ if __name__ == "__main__":
     f.close()
 
     # Update birthday
-    sql_connection.sql_select("MEMBER")
+    today = date.today()
+    members = sql_connection.sql_select("MEMBERS")
+    for member in members:
+        age = today.year - member[4].year - ((today.month, today.day) < (member[4].month, member[4].day))
+        sql_connection.sql_update("MEMBERS", member[0], {'mb_age': age})
 
     # Tkinter mainloop
     app = App()
