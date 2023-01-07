@@ -43,7 +43,9 @@ class AuthorViewPage(tk.Frame):
             self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
+        self.error_label = tk.Label(self, text="", fg="IndianRed1")
         self.update_table()
+        self.error_label.pack(padx=10, pady=2)
 
     def update_table(self):
         self.author_list = m.sql_connection.sql_select("AUTHOR")
@@ -53,6 +55,7 @@ class AuthorViewPage(tk.Frame):
                 break
             self.table.insert("", 'end', values=self.author_list[i])
         self.table.pack(fill="both", expand=True, padx=10)
+        self.error_label.config(text='')
 
     def refresh(self):
         self.cur_page = 0
@@ -73,10 +76,14 @@ class AuthorViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[ae.AuthorEditPage].target = cur_item
             sf.show_frame(ae.AuthorEditPage)
+        self.error_label.config(text='')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
+            self.error_label.config(text='ERROR: Please select an author!')
             return
-        m.sql_connection.sql_delete("AUTHOR", cur_item['values'][0])
+        if not m.sql_connection.sql_delete("AUTHOR", cur_item['values'][0]):
+            self.error_label.config(text="ERROR: Cannot delete an author with existing book!")
+            return
         self.refresh()
