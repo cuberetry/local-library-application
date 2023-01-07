@@ -22,6 +22,12 @@ class SelectionPage(tk.Frame):
         self.select_button = tk.Button(self, text='Confirm', command=lambda: self.select_item())
         self.select_button.pack(padx=0, pady=0, side=tk.BOTTOM)
 
+        # Navigation
+        self.next_button = tk.Button(self, text='Next', command=lambda: self.goto_next_page())
+        self.next_button.pack(padx=0, pady=20, side=tk.RIGHT)
+        self.prev_button = tk.Button(self, text='Prev', command=lambda: self.goto_prev_page())
+        self.prev_button.pack(padx=0, pady=20, side=tk.LEFT)
+
         # Init DB connection and table
         self.columns = None
         self.table = None
@@ -44,6 +50,16 @@ class SelectionPage(tk.Frame):
                 break
             self.table.insert("", 'end', values=self.list[i])
         self.table.place(x=125, y=200)
+
+    def goto_next_page(self):
+        if self.cur_page < len(self.list) // 25:
+            self.cur_page += 1
+        self.refresh()
+
+    def goto_prev_page(self):
+        if self.cur_page > 0:
+            self.cur_page -= 1
+        self.refresh()
 
     def select_item(self):
         if self.db_table == 'BOOKS':
