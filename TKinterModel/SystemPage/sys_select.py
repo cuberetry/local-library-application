@@ -32,6 +32,10 @@ class SelectionPage(tk.Frame):
         self.columns = None
         self.table = None
 
+    def update_table(self):
+        self.cur_page = 0
+        self.refresh()
+
     def refresh(self):
         self.columns = None
         if self.db_table == 'BOOKS':
