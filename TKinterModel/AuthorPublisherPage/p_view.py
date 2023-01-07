@@ -70,7 +70,7 @@ class PublisherViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[pe.PublisherEditPage].target = cur_item
             sf.show_frame(pe.PublisherEditPage)
-        self.error_label.config(text='')
+        self.error_label.config(text='ERROR: Please select a publisher!')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
