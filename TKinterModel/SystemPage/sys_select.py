@@ -55,7 +55,7 @@ class SelectionPage(tk.Frame):
             if i > len(self.list) - 1:
                 break
             self.table.insert("", 'end', values=self.list[i])
-        self.table.place(x=125, y=200)
+        self.table.pack(fill="both", expand=True, padx=10)
 
     def goto_next_page(self):
         if self.cur_page < len(self.list) // 25:
