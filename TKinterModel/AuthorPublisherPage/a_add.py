@@ -16,13 +16,13 @@ class AuthorAddPage(tk.Frame):
                                      command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
         self.book_button.pack(padx=10, pady=20)
 
-        self.author_fn_label = tk.Label(self, text="Add Author First Name*")
+        self.author_fn_label = tk.Label(self, text="Add Author First Name* (Max 50 Characters)")
         self.author_fn_label.pack(padx=10, pady=2)
 
         self.author_fn_entry = tk.Entry(self)
         self.author_fn_entry.pack(padx=10, pady=2)
 
-        self.author_ln_label = tk.Label(self, text="Add Author Last Name")
+        self.author_ln_label = tk.Label(self, text="Add Author Last Name (Max 50 Characters)")
         self.author_ln_label.pack(padx=10, pady=2)
 
         self.author_ln_entry = tk.Entry(self)
@@ -39,16 +39,12 @@ class AuthorAddPage(tk.Frame):
         a_lname = self.author_ln_entry.get()
 
         # Handling input fields
-        if a_fname == '' or a_lname == '':
+        if a_fname == '':
             self.error_msg = "Please fill all the required field(s)!"
             self.error_label.config(text=self.error_msg)
             return
         elif len(a_fname) > 50 or len(a_lname) > 50:
             self.error_msg = "Text exceeded 50 characters"
-            self.error_label.config(text=self.error_msg)
-            return
-        elif self.check_num(a_fname) or self.check_num(a_lname):
-            self.error_msg = "Please enter a valid name"
             self.error_label.config(text=self.error_msg)
             return
         else:
@@ -64,7 +60,3 @@ class AuthorAddPage(tk.Frame):
         # Return user to author page
         sf.frames[av.AuthorViewPage].refresh()
         sf.show_frame(av.AuthorViewPage)
-
-    @staticmethod
-    def check_num(text):
-        return any(i.isdigit() for i in text)

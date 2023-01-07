@@ -16,7 +16,7 @@ class PublisherAddPage(tk.Frame):
                                      command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
         self.book_button.pack(padx=10, pady=20)
 
-        self.p_name_l = tk.Label(self, text='Add Publisher Name:')
+        self.p_name_l = tk.Label(self, text='Add Publisher Name (Max 100 Characters)')
         self.p_name_l.pack(padx=10, pady=2)
         self.p_name_e = tk.Entry(self)
         self.p_name_e.pack(padx=10, pady=2)
@@ -39,10 +39,6 @@ class PublisherAddPage(tk.Frame):
             self.error_msg = "Text exceeded 100 characters"
             self.error_label.config(text=self.error_msg)
             return
-        elif self.check_num(p_name):
-            self.error_msg = "Please enter a valid name"
-            self.error_label.config(text=self.error_msg)
-            return
         else:
             self.error_label.config(text="")
 
@@ -55,7 +51,3 @@ class PublisherAddPage(tk.Frame):
         # Return user to publisher page
         sf.frames[pv.PublisherViewPage].refresh()
         sf.show_frame(pv.PublisherViewPage)
-
-    @staticmethod
-    def check_num(text):
-        return any(i.isdigit() for i in text)

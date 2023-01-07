@@ -23,7 +23,7 @@ class BookAddPage(tk.Frame):
         self.book_name_entry.pack(padx=10, pady=2)
 
         self.book_des_label = tk.Label(
-            self, text="Add Book Description (Max 200 Chatacters)")
+            self, text="Add Book Description (Max 200 Characters)")
         self.book_des_label.pack(padx=10, pady=2)
 
         self.book_des_entry = tk.Text(self, width=60, height=4)
