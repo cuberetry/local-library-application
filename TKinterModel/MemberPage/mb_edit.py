@@ -91,28 +91,32 @@ class MemberEditPage(tk.Frame):
 
         self.target = None
 
+        # Error message
+        self.error_label = tk.Label(self, text=self.error_msg, fg='IndianRed1')
+        self.error_label.pack(padx=10, pady=2)
+
     def edit_book(self):
         edit_dict = dict()
-        mb_fname = self.member_fn_entry.get()
-        mb_lname = self.member_ln_entry.get()
+        mb_fname = self.mb_fname_entry.get()
+        mb_lname = self.mb_lname_entry.get()
         mb_birthday = self.member_bd_entry.get_date()
-        mb_phone = self.member_phone_entry.get()
-        mb_email = self.member_email_entry.get()
-        mb_national_id = self.member_national_id_entry.get()
-        mb_passport_id = self.member_passport_id_entry.get()
-        mb_address = self.member_address_entry.get()
+        mb_phone = self.mb_phone_entry.get()
+        mb_email = self.mb_email_entry.get()
+        mb_national_id = self.mb_national_id_entry.get()
+        mb_passport_id = self.mb_passport_id_entry.get()
+        mb_address = self.mb_address_entry.get()
         if mb_fname != '':
             if len(mb_fname) > 50:
                 self.error_msg = "Text exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_fname"] = self.mb_fname
+            edit_dict["mb_fname"] = mb_fname
         if mb_lname != '':
             if len(mb_lname) > 50:
                 self.error_msg = "Text exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_lname"] = self.mb_lname
+            edit_dict["mb_lname"] = mb_lname
         if mb_birthday != '':
             if mb_birthday > d.date.today():
                 self.error_msg = "Please enter a valid birthday"
@@ -128,31 +132,31 @@ class MemberEditPage(tk.Frame):
                 self.error_msg = "Phone number exceeded 13 digits"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_phone"] = self.mb_phone
+            edit_dict["mb_phone"] = mb_phone
         if mb_email != '':
             if len(mb_email) > 50:
                 self.error_msg = "Text exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_email"] = self.mb_email
+            edit_dict["mb_email"] = mb_email
         if mb_national_id != '':
             if len(mb_national_id) > 13:
                 self.error_msg = "Phone number exceeded 13 digits"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_national_id"] = self.mb_national_id
+            edit_dict["mb_national_id"] = mb_national_id
         if mb_passport_id != '':
             if len(mb_passport_id) > 8:
                 self.error_msg = "Text exceeded 8 characters"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_passport_id"] = self.mb_passport_id
+            edit_dict["mb_passport_id"] = mb_passport_id
         if mb_address != '':
             if len(mb_address) > 100:
                 self.error_msg = "Text exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
-            edit_dict["mb_address"] = self.mb_address
+            edit_dict["mb_address"] = mb_address
         m.sql_connection.sql_update(
             "MEMBERS", self.target['values'][0], edit_dict)
         # Empty input field
