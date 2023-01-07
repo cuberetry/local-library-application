@@ -73,10 +73,10 @@ class AuthorViewPage(tk.Frame):
 
     def edit_item(self):
         cur_item = self.table.item(self.table.focus())
-        if cur_item['values'] != "ERROR: Please select an author!":
+        if cur_item['values'] != "":
             sf.frames[ae.AuthorEditPage].target = cur_item
             sf.show_frame(ae.AuthorEditPage)
-        self.error_label.config(text='')
+        self.error_label.config(text='ERROR: Please select an author!')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
