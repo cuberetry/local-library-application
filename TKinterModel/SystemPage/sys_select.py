@@ -15,17 +15,21 @@ class SelectionPage(tk.Frame):
         self.label = None
 
         # Prev page button
-        self.home_button = tk.Button(self, text='Previous Page', command=lambda: sf.show_frame(self.prev_page))
+        self.home_button = tk.Button(
+            self, text='Previous Page', command=lambda: sf.show_frame(self.prev_page))
         self.home_button.pack(padx=10, pady=20)
 
         # Confirm button
-        self.select_button = tk.Button(self, text='Confirm', command=lambda: self.select_item())
+        self.select_button = tk.Button(
+            self, text='Confirm', command=lambda: self.select_item())
         self.select_button.pack(padx=0, pady=0, side=tk.BOTTOM)
 
         # Navigation
-        self.next_button = tk.Button(self, text='Next', command=lambda: self.goto_next_page())
+        self.next_button = tk.Button(
+            self, text='Next', command=lambda: self.goto_next_page())
         self.next_button.pack(padx=0, pady=20, side=tk.RIGHT)
-        self.prev_button = tk.Button(self, text='Prev', command=lambda: self.goto_prev_page())
+        self.prev_button = tk.Button(
+            self, text='Prev', command=lambda: self.goto_prev_page())
         self.prev_button.pack(padx=0, pady=20, side=tk.LEFT)
 
         # Init DB connection and table
@@ -41,7 +45,8 @@ class SelectionPage(tk.Frame):
         if self.table is not None:
             self.table.destroy()
         if self.db_table == 'BOOKS':
-            self.columns = ["ID", "Name", "Description", "Book Status", "Author ID", "Publisher ID"]
+            self.columns = ["ID", "Name", "Description",
+                            "Book Status", "Author ID", "Publisher ID"]
             self.list = m.sql_connection.sql_select(self.db_table)
         elif self.db_table == 'MEMBERS':
             self.columns = ["ID", "Name", "Surname", "Age", "Phone", "E-mail"]
@@ -53,7 +58,8 @@ class SelectionPage(tk.Frame):
         elif self.db_table == 'PUBLISHER':
             self.columns = ["ID", "Name"]
             self.list = m.sql_connection.sql_select(self.db_table)
-        self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
+        self.table = ttk.Treeview(
+            self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
         self.table.delete(*self.table.get_children())
@@ -75,17 +81,25 @@ class SelectionPage(tk.Frame):
 
     def select_item(self):
         if self.db_table == 'BOOKS':
-            sf.frames[self.prev_page].tg_book = self.table.item(self.table.focus())
-            self.label.config(text=sf.frames[self.prev_page].tg_book['values'][1])
+            sf.frames[self.prev_page].tg_book = self.table.item(
+                self.table.focus())
+            self.label.config(
+                text=sf.frames[self.prev_page].tg_book['values'][1])
         if self.db_table == 'MEMBERS':
-            sf.frames[self.prev_page].tg_member = self.table.item(self.table.focus())
-            self.label.config(text=sf.frames[self.prev_page].tg_member['values'][1] + " " + sf.frames[self.prev_page].tg_member['values'][2])
+            sf.frames[self.prev_page].tg_member = self.table.item(
+                self.table.focus())
+            self.label.config(text=sf.frames[self.prev_page].tg_member['values']
+                              [1] + " " + sf.frames[self.prev_page].tg_member['values'][2])
         if self.db_table == 'AUTHOR':
-            sf.frames[self.prev_page].tg_author = self.table.item(self.table.focus())
-            self.label.config(text=sf.frames[self.prev_page].tg_author['values'][1] + " " + sf.frames[self.prev_page].tg_author['values'][2])
+            sf.frames[self.prev_page].tg_author = self.table.item(
+                self.table.focus())
+            self.label.config(text=sf.frames[self.prev_page].tg_author['values']
+                              [1] + " " + sf.frames[self.prev_page].tg_author['values'][2])
         if self.db_table == 'PUBLISHER':
-            sf.frames[self.prev_page].tg_publisher = self.table.item(self.table.focus())
-            self.label.config(text=sf.frames[self.prev_page].tg_publisher['values'][1])
+            sf.frames[self.prev_page].tg_publisher = self.table.item(
+                self.table.focus())
+            self.label.config(
+                text=sf.frames[self.prev_page].tg_publisher['values'][1])
         sf.show_frame(self.prev_page)
         self.target = None
         self.prev_page = None
