@@ -19,14 +19,6 @@ class MemberAddPage(tk.Frame):
                                 command=lambda: sf.show_frame(mm.MemberMainPage))
         book_button.pack(padx=10, pady=10)
 
-        # self.author_fn_label = tk.Label(self, text="Add Author First Name",width=10,font=("bold", 11))
-        # self.author_fn_label.pack(padx=10, pady=2)
-        # self.author_fn_label.place(x=90,y=53)
-
-        # self.author_fn_entry = tk.Entry(self)
-        # self.author_fn_entry.pack(padx=10, pady=2)
-        # self.author_fn_entry.place(x=200, y=120)
-
         self.member_fn_label = tk.Label(self, text="Enter member First Name*")
         self.member_fn_label.pack(padx=10, pady=2)
 
@@ -85,14 +77,14 @@ class MemberAddPage(tk.Frame):
         self.member_address_entry.pack(padx=10, pady=2)
 
         self.submit_button = tk.Button(
-            self, text='Submit', command=lambda: self.add_to_SQL())
+            self, text='Submit', command=lambda: self.add_to_sql())
         self.submit_button.pack(padx=10, pady=2)
 
         # Error message
         self.error_label = tk.Label(self, text=self.error_msg, fg='IndianRed1')
         self.error_label.pack(padx=10, pady=2)
 
-    def add_to_SQL(self):
+    def add_to_sql(self):
         mb_fname = self.member_fn_entry.get()
         mb_lname = self.member_ln_entry.get()
         mb_age = self.member_age_entry.get()
