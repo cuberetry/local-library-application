@@ -133,7 +133,10 @@ class MemberAddPage(tk.Frame):
             return
 
         today = d.date.today()
-        age = today.year - mb_birthday.year - ((today.month, today.day) < (mb_birthday.month, mb_birthday.day))
+        try:
+            age = today.year - mb_birthday.year - ((today.month, today.day) < (mb_birthday.month, mb_birthday.day))
+        except AttributeError:
+            age = None
         mb_birthday = mb_birthday.strftime('%Y-%m-%d')
 
         # Insert to SQL
