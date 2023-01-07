@@ -116,5 +116,5 @@ class LendingAddPage(tk.Frame):
         sf.frames[ss.SelectionPage].db_table = table
         sf.frames[ss.SelectionPage].prev_page = LendingAddPage
         sf.frames[ss.SelectionPage].label = label
-        sf.frames[ss.SelectionPage].refresh()
+        sf.frames[ss.SelectionPage].update_table()
         sf.show_frame(ss.SelectionPage)
