@@ -94,3 +94,10 @@ class SelectionPage(tk.Frame):
         self.cur_page = 0
         # self.table = None
         self.label = None
+
+    def show_page(self, table_name=str, prev_page=tk.Frame, label=tk.Label):
+        self.db_table = table_name
+        self.prev_page = prev_page
+        self.label = label
+        self.update_table()
+        sf.show_frame(SelectionPage)
