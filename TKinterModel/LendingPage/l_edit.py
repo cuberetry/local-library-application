@@ -31,7 +31,8 @@ class LendingEditPage(tk.Frame):
         now = now.strftime('%Y-%m-%d %H:%M:%S')
 
         # Insert to SQL
-        m.sql_connection.sql_update('LENDING', self.target['values'][3], {'l_return_date': now})
-        print(now)
-        sf.show_frame(lv.LendingViewPage)
+        m.sql_connection.sql_update('LENDING', self.target['values'][0], {'l_return_date': now})
 
+        # Return user to lending page
+        sf.frames[lv.LendingViewPage].refresh()
+        sf.show_frame(lv.LendingViewPage)
