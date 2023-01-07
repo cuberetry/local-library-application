@@ -44,7 +44,7 @@ class BookAddPage(tk.Frame):
         # Author field
         self.author_label = tk.Label(self, text="No author selected")
         self.author_id_button = tk.Button(self, text="Select a author*",
-                                        command=lambda: self.select_item("AUTHOR", self.author_label))
+                                          command=lambda: self.select_item("AUTHOR", self.author_label))
         self.author_id_button.pack(padx=10, pady=2)
         self.author_label.pack(padx=10, pady=2)
 
@@ -54,7 +54,7 @@ class BookAddPage(tk.Frame):
         # Publisher field
         self.publisher_label = tk.Label(self, text="No publisher selected")
         self.publisher_id_button = tk.Button(self, text="Select a publisher*",
-                                        command=lambda: self.select_item("PUBLISHER", self.publisher_label))
+                                             command=lambda: self.select_item("PUBLISHER", self.publisher_label))
         self.publisher_id_button.pack(padx=10, pady=2)
         self.publisher_label.pack(padx=10, pady=2)
 
@@ -111,5 +111,5 @@ class BookAddPage(tk.Frame):
         sf.frames[ss.SelectionPage].db_table = table
         sf.frames[ss.SelectionPage].prev_page = BookAddPage
         sf.frames[ss.SelectionPage].label = label
-        sf.frames[ss.SelectionPage].refresh()
+        sf.frames[ss.SelectionPage].update_table()
         sf.show_frame(ss.SelectionPage)

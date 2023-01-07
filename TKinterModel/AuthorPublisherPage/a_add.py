@@ -5,7 +5,7 @@ import TKinterModel.AuthorPublisherPage.ap_main as apm
 import TKinterModel.AuthorPublisherPage.a_view as av
 import __main__ as m
 
-    
+
 class AuthorAddPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
@@ -29,7 +29,8 @@ class AuthorAddPage(tk.Frame):
         self.author_ln_entry = tk.Entry(self)
         self.author_ln_entry.pack(padx=10, pady=2)
 
-        self.submit_button = tk.Button(self, text='Submit', command=lambda: self.add_to_sql())
+        self.submit_button = tk.Button(
+            self, text='Submit', command=lambda: self.add_to_sql())
         self.submit_button.pack(padx=10, pady=20)
 
         self.error_label = tk.Label(self, text="", fg="IndianRed1")
@@ -56,7 +57,8 @@ class AuthorAddPage(tk.Frame):
         self.author_ln_entry.delete(0, "end")
 
         # Insert to SQL
-        m.sql_connection.sql_insert('AUTHOR', {'a_fname': a_fname, 'a_lname': a_lname})
+        m.sql_connection.sql_insert(
+            'AUTHOR', {'a_fname': a_fname, 'a_lname': a_lname})
 
         # Return user to author page
         sf.frames[av.AuthorViewPage].refresh()
