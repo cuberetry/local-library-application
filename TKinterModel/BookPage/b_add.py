@@ -111,6 +111,5 @@ class BookAddPage(tk.Frame):
         sf.frames[ss.SelectionPage].db_table = table
         sf.frames[ss.SelectionPage].prev_page = BookAddPage
         sf.frames[ss.SelectionPage].label = label
-        sf.frames[ss.SelectionPage].cur_page = 0
         sf.frames[ss.SelectionPage].refresh()
         sf.show_frame(ss.SelectionPage)
