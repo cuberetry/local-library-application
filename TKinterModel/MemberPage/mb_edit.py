@@ -85,6 +85,9 @@ class MemberEditPage(tk.Frame):
         self.mb_address_entry = tk.Entry(self, textvariable=self.mb_address)
         self.mb_address_entry.pack(padx=10, pady=2)
 
+        self.error_label = tk.Label(self, text="", fg="IndianRed1")
+        self.error_label.pack(padx=10, pady=2)
+
         self.submit_button = tk.Button(self, text='Submit',
                                        command=lambda: self.edit_book())
         self.submit_button.pack(padx=10, pady=20)
@@ -95,22 +98,70 @@ class MemberEditPage(tk.Frame):
         edit_dict = dict()
         if self.mb_fname_entry.get() != '':
             edit_dict["mb_fname"] = self.mb_fname_entry.get()
+            if len(self.mb_fname_entry.get()) > 50:
+                self.error_label.config(text="Text exceeded 50 characters")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_lname_entry.get() != '':
             edit_dict["mb_lname"] = self.mb_lname_entry.get()
+            if len(self.mb_lname_entry.get()) > 50:
+                self.error_label.config(text="Text exceeded 50 characters")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_age_entry.get() != '':
             edit_dict["mb_age"] = self.mb_age_entry.get()
+            if len(self.mb_age_entry.get()) > 3:
+                self.error_label.config(text="Please enter a valid age")
+                return
+            elif self.mb_age_entry.get().isnumeric() is False:
+                self.error_label.config(text="Please enter a valid age")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_birthday_entry.get() != '':
             edit_dict["mb_birthday"] = self.mb_birthday_entry.get()
+            if len(self.mb_birthday_entry.get()) > 10:
+                self.error_label.config(text="Please enter a valid birthday (YYYY-MM-DD)")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_phone_entry.get() != '':
             edit_dict["mb_phone"] = self.mb_phone_entry.get()
+            if len(self.mb_phone_entry.get()) > 13:
+                self.error_label.config(text="phone number exceeded 13 digits")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_email_entry.get() != '':
             edit_dict["mb_email"] = self.mb_email_entry.get()
+            if len(self.mb_email_entry.get()) > 50:
+                self.error_label.config(text="Text exceeded 50 characters")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_national_id_entry.get() != '':
             edit_dict["mb_national_id"] = self.mb_national_id_entry.get()
+            if len(self.mb_national_id_entry.get()) > 13:
+                self.error_label.config(text="Text exceeded 13 characters")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_passport_id_entry.get() != '':
             edit_dict["mb_passport_id"] = self.mb_passport_id_entry.get()
+            if len(self.mb_passport_id_entry.get()) > 8:
+                self.error_label.config(text="Text exceeded 8 characters")
+                return
+            else:
+                self.error_label.config(text="")
         if self.mb_address_entry.get() != '':
             edit_dict["mb_address"] = self.mb_address_entry.get()
+            if len(self.mb_address_entry.get()) > 100:
+                self.error_label.config(text="Text exceeded 100 characters")
+                return
+            else:
+                self.error_label.config(text="")
         m.sql_connection.sql_update("MEMBERS", self.target['values'][0], edit_dict)
         # Empty input field
         self.mb_fname_entry.delete(0, "end")
@@ -122,3 +173,7 @@ class MemberEditPage(tk.Frame):
         self.mb_national_id_entry.delete(0, "end")
         self.mb_passport_id_entry.delete(0, "end")
         self.mb_address_entry.delete(0, "end")
+
+        # Return user to publisher page
+        sf.frames[mv.MemberViewPage].refresh()
+        sf.show_frame(mv.MemberViewPage)
