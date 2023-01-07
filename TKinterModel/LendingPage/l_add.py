@@ -64,7 +64,7 @@ class LendingAddPage(tk.Frame):
 
         # Error message
         self.error_label = tk.Label(self, text=self.error_msg, fg='IndianRed1')
-        self.error_label.pack(padx=10, pady=20)
+        self.error_label.pack(padx=10, pady=2)
 
     def add_to_sql(self):
         # Handling input fields
@@ -78,8 +78,8 @@ class LendingAddPage(tk.Frame):
         duration = self.d_entry.get()
         now = d.datetime.now()
 
-        if self.tg_book['values'][3] == False:
-            self.error_msg == "Book not available for lending!"
+        if not self.tg_book['values'][3]:
+            self.error_msg = "Book not available for lending!"
             self.error_label.config(text=self.error_msg)
             return
             
@@ -109,7 +109,7 @@ class LendingAddPage(tk.Frame):
                                     {'l_start_date': lsd, 'l_due_date': ldd,
                                      'mb_id': mb_id, 'b_id': b_id})
         # Update book status
-        m.sql_connection.sql_update("BOOKS", self.tg_book['values'][0], {'b_status': False})
+        m.sql_connection.sql_update("BOOKS", self.tg_book['values'][0], {'b_status': 0})
 
 
         # Empty input field
