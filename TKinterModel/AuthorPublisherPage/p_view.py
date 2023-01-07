@@ -37,7 +37,9 @@ class PublisherViewPage(tk.Frame):
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
+        self.error_label = tk.Label(self, text="", fg="IndianRed1")
         self.update_table()
+        self.error_label.pack(padx=10, pady=2)
 
     def update_table(self):
         self.publisher_list = m.sql_connection.sql_select("PUBLISHER")
@@ -47,6 +49,7 @@ class PublisherViewPage(tk.Frame):
                 break
             self.table.insert("", 'end', values=self.publisher_list[i])
         self.table.pack(fill="both", expand=True, padx=10)
+        self.error_label.config(text='')
 
     def refresh(self):
         self.cur_page = 0
@@ -67,10 +70,14 @@ class PublisherViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[pe.PublisherEditPage].target = cur_item
             sf.show_frame(pe.PublisherEditPage)
+        self.error_label.config(text='')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
+            self.error_label.config(text='ERROR: Please select a publisher!')
             return
-        m.sql_connection.sql_delete("PUBLISHER", cur_item['values'][0])
+        if not m.sql_connection.sql_delete("PUBLISHER", cur_item['values'][0]):
+            self.error_label.config(text="ERROR: Cannot delete a publisher with existing book!")
+            return
         self.refresh()

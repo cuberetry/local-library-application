@@ -14,13 +14,13 @@ class BookMainPage(tk.Frame):
         home_button = tk.Button(self, text='Homepage', command=lambda: sf.show_frame(sh.Homepage))
         home_button.pack(padx=10, pady=20)
 
-        label = tk.Label(self, text="This is page 1: book page")
+        label = tk.Label(self, text="Welcome to Main Book Page!")
         label.pack(padx=10, pady=20)
 
-        bv_button = tk.Button(self, text='View all books', font=def_font,
+        bv_button = tk.Button(self, text='View or Edit Books', font=def_font,
                               command=lambda: sf.show_frame(bv.BookViewPage), height=2, width=20)
         bv_button.pack(padx=10, pady=20)
 
-        ba_button = tk.Button(self, text='Add a new book', font=def_font,
+        ba_button = tk.Button(self, text='Add a New Book', font=def_font,
                               command=lambda: sf.show_frame(ba.BookAddPage), height=2, width=20)
         ba_button.pack(padx=10, pady=20)

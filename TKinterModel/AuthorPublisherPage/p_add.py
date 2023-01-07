@@ -19,6 +19,7 @@ class PublisherAddPage(tk.Frame):
 
         self.p_name_l = tk.Label(self, text='Enter Publisher Name')
         self.p_name_l.pack(padx=10, pady=2)
+        
         self.p_name_e = tk.Entry(self)
         self.p_name_e.pack(padx=10, pady=2)
 
