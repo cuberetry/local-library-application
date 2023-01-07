@@ -132,11 +132,15 @@ class MemberAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
 
+        today = d.date.today()
+        age = today.year - mb_birthday.year - ((today.month, today.day) < (mb_birthday.month, mb_birthday.day))
         mb_birthday = mb_birthday.strftime('%Y-%m-%d')
 
         # Insert to SQL
         m.sql_connection.sql_insert('MEMBERS', {'mb_fname': mb_fname, 'mb_lname': mb_lname, 'mb_birthday': mb_birthday,
-                                    'mb_phone': mb_phone, 'mb_email': mb_email, 'mb_national_id': mb_national_id, 'mb_passport_id': mb_passport_id, 'mb_address': mb_address})
+                                                'mb_age': age, 'mb_phone': mb_phone, 'mb_email': mb_email,
+                                                'mb_national_id': mb_national_id, 'mb_passport_id': mb_passport_id,
+                                                'mb_address': mb_address})
 
         # Empty input field
         self.member_fn_entry.delete(0, "end")
