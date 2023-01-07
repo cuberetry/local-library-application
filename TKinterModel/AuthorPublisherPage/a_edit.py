@@ -8,6 +8,7 @@ import __main__ as m
 class AuthorEditPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
+        self.error_msg = ""
         self.home_button = tk.Button(
             self, text='Homepage', command=lambda: sf.show_frame(sh.Homepage))
         self.home_button.pack(padx=10, pady=20)
@@ -45,22 +46,20 @@ class AuthorEditPage(tk.Frame):
         if self.a_fname_entry.get() != '':
             edit_dict["a_fname"] = self.a_fname_entry.get()
             if len(self.a_fname_entry.get()) > 50:
-                self.error_label.config(text="Text exceeded 50 characters")
+                self.error_msg = "Text exceeded 50 characters"
                 return
-            else:
-                self.error_label.config(text="")
         if self.a_lname_entry.get() != '':
             edit_dict["a_lname"] = self.a_lname_entry.get()
             if len(self.a_lname_entry.get()) > 50:
-                self.error_label.config(text="Text exceeded 50 characters")
+                self.error_msg = "Text exceeded 50 characters"
                 return
-            else:
-                self.error_label.config(text="")
         m.sql_connection.sql_update(
             "AUTHOR", self.target['values'][0], edit_dict)
         # Empty input field
         self.a_fname_entry.delete(0, "end")
         self.a_lname_entry.delete(0, "end")
+        self.error_msg = ""
+        self.error_label.config(text=self.error_msg)
 
         # Return user to publisher page
         sf.frames[av.AuthorViewPage].refresh()
