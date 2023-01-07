@@ -1,7 +1,7 @@
 import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
-import TKinterModel.AuthorPublisherPage.ap_main as apm
+import TKinterModel.AuthorPublisherPage.a_view as av
 import __main__ as m
 
 
@@ -12,7 +12,7 @@ class AuthorEditPage(tk.Frame):
             self, text='Homepage', command=lambda: sf.show_frame(sh.Homepage))
         self.home_button.pack(padx=10, pady=20)
         self.book_button = tk.Button(
-            self, text='Author Page', command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
+            self, text='Author Page', command=lambda: sf.show_frame(av.AuthorViewPage))
         self.book_button.pack(padx=10, pady=20)
 
         # Edit firstname
@@ -32,12 +32,12 @@ class AuthorEditPage(tk.Frame):
         self.a_lname_entry.pack(padx=10, pady=2)
 
         self.submit_button = tk.Button(self, text='Submit',
-                                       command=lambda: self.edit_book())
+                                       command=lambda: self.edit_author())
         self.submit_button.pack(padx=10, pady=20)
 
         self.target = None
 
-    def edit_book(self):
+    def edit_author(self):
         edit_dict = dict()
         if self.a_fname_entry.get() != '':
             edit_dict["a_fname"] = self.a_fname_entry.get()
@@ -48,3 +48,6 @@ class AuthorEditPage(tk.Frame):
         # Empty input field
         self.a_fname_entry.delete(0, "end")
         self.a_lname_entry.delete(0, "end")
+
+        sf.frames[av.AuthorViewPage].refresh()
+        sf.show_frame(av.AuthorViewPage)
