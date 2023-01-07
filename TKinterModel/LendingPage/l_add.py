@@ -78,6 +78,12 @@ class LendingAddPage(tk.Frame):
         duration = self.d_entry.get()
         now = d.datetime.now()
 
+        if self.tg_book['values'][3] == False:
+            self.error_msg == "Book not available for lending!"
+            self.error_label.config(text=self.error_msg)
+            return
+            
+
         try:
             if duration == '':
                 duration = 14
@@ -102,6 +108,9 @@ class LendingAddPage(tk.Frame):
         m.sql_connection.sql_insert('LENDING',
                                     {'l_start_date': lsd, 'l_due_date': ldd,
                                      'mb_id': mb_id, 'b_id': b_id})
+        # Update book status
+        m.sql_connection.sql_update("BOOKS", self.tg_book['values'][0], {'b_status': False})
+
 
         # Empty input field
         self.tg_book = None
