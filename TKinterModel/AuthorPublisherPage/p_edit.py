@@ -14,7 +14,7 @@ class PublisherEditPage(tk.Frame):
         self.publisher_button.pack(padx=10, pady=20)
 
         # Edit name
-        self.p_name_label = tk.Label(self, text="Edit Publisher Name*")
+        self.p_name_label = tk.Label(self, text="Edit Publisher Name")
         self.p_name_label.pack(padx=10, pady=2)
 
         self.p_name = tk.StringVar()
