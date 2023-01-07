@@ -4,6 +4,7 @@ import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.MemberPage.mb_main as mm
 import __main__ as m
 import datetime as d
+from datetime import date
 from tkcalendar import DateEntry
 
 
@@ -118,8 +119,13 @@ class MemberAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
         
-        elif mb_age.isnumeric() is False:
+        elif mb_age != '' and mb_age.isnumeric() is False:
             self.error_msg = "Please enter a valid age"
+            self.error_label.config(text=self.error_msg)
+            return
+
+        elif mb_birthday > d.date.today():
+            self.error_msg = "Please enter a valid birthday"
             self.error_label.config(text=self.error_msg)
             return
 
@@ -148,24 +154,9 @@ class MemberAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
 
-        
-
-        print(mb_birthday)
-        print(type(mb_birthday))
-        # now = d.datetime.now()
-
-        # if mb_birthday < now:
-            
-
-        # # Handling date
-        # mbsd = now
-        # mbdd = now + d.timedelta(days=duration)
-
-        # lsd = lsd.strftime('%Y-%m-%d %H:%M:%S')
-        # ldd = ldd.strftime('%Y-%m-%d')
 
         # Insert to SQL
-        m.sql_connection.sql_insert('MEMBER', {'mb_fname':mb_fname,'mb_lname':mb_lname, 'mb_age':mb_age, 'mb_birthday':mb_birthday, 'mb_phone':mb_phone, 'mb_email':mb_email, 'mb_national_id':mb_national_id, 'mb_passport_id':mb_passport_id, 'mb_address':mb_address})
+        m.sql_connection.sql_insert('MEMBERSß', {'mb_fname':mb_fname,'mb_lname':mb_lname, 'mb_age':mb_age, 'mb_birthday':mb_birthday, 'mb_phone':mb_phone, 'mb_email':mb_email, 'mb_national_id':mb_national_id, 'mb_passport_id':mb_passport_id, 'mb_address':mb_address})
 
         # Empty input field
         self.member_fn_entry.delete(0,"end")
