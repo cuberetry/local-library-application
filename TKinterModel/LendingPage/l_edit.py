@@ -12,7 +12,7 @@ class LendingEditPage(tk.Frame):
         def_font = tkf.Font(family='Courier', size=20, weight='bold')
         self.target = None
 
-        home_button = tk.Button(self, text='Homepage', command=lambda: sf.show_frame(lv.LendingViewPage))
+        home_button = tk.Button(self, text='Lending view page', command=lambda: sf.show_frame(lv.LendingViewPage))
         home_button.pack(padx=10, pady=20)
 
         label = tk.Label(self, text="This is lending edit page")
@@ -32,5 +32,6 @@ class LendingEditPage(tk.Frame):
 
         # Insert to SQL
         m.sql_connection.sql_update('LENDING', self.target['values'][3], {'l_return_date': now})
+        print(now)
         sf.show_frame(lv.LendingViewPage)
 
