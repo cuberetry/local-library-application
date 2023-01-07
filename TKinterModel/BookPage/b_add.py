@@ -9,6 +9,7 @@ import __main__ as m
 class BookAddPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
+        self.error_msg = ''
         home_button = tk.Button(self, text='Homepage',
                                 command=lambda: sf.show_frame(sh.Homepage))
         home_button.pack(padx=10, pady=20)
@@ -42,13 +43,13 @@ class BookAddPage(tk.Frame):
         self.publisher_id_entry.pack(padx=10, pady=2)
 
         self.submit_button = tk.Button(
-            self, text='Submit', command=lambda: self.add_to_SQL())
+            self, text='Submit', command=lambda: self.add_to_sql())
         self.submit_button.pack(padx=10, pady=20)
 
         self.error_label = tk.Label(self, text="", fg="IndianRed1")
         self.error_label.pack(padx=10, pady=2)
 
-    def add_to_SQL(self):
+    def add_to_sql(self):
         bk_name = self.book_name_entry.get()
         bk_des = self.book_des_entry.get("1.0", "end")
         auth_id = self.author_id_entry.get()
