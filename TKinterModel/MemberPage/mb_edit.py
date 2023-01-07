@@ -1,13 +1,16 @@
 import tkinter as tk
+from tkcalendar import DateEntry
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.MemberPage.mb_view as mv
+import datetime as d
 import __main__ as m
 
 
 class MemberEditPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
+        self.mb_birthday = None
         self.home_button = tk.Button(self, text='Homepage', command=lambda: sf.show_frame(sh.Homepage))
         self.home_button.pack(padx=10, pady=20)
         self.member_button = tk.Button(self, text='Member View Page', command=lambda: sf.show_frame(mv.MemberViewPage))
@@ -41,8 +44,7 @@ class MemberEditPage(tk.Frame):
         self.mb_bd_label = tk.Label(self, text="Edit Member Birthday")
         self.mb_bd_label.pack(padx=10, pady=2)
 
-        self.mb_birthday = tk.StringVar()
-        self.mb_birthday_entry = tk.Entry(self, textvariable=self.mb_birthday)
+        self.mb_birthday_entry = DateEntry(self, locale='en_US', date_pattern='yyyy/mm/dd')
         self.mb_birthday_entry.pack(padx=10, pady=2)
 
         # Edit member phone
@@ -96,6 +98,7 @@ class MemberEditPage(tk.Frame):
 
     def edit_book(self):
         edit_dict = dict()
+        self.mb_birthday = self.mb_birthday_entry.get_date()
         if self.mb_fname_entry.get() != '':
             edit_dict["mb_fname"] = self.mb_fname_entry.get()
             if len(self.mb_fname_entry.get()) > 50:
@@ -120,13 +123,19 @@ class MemberEditPage(tk.Frame):
                 return
             else:
                 self.error_label.config(text="")
-        if self.mb_birthday_entry.get() != '':
-            edit_dict["mb_birthday"] = self.mb_birthday_entry.get()
-            if len(self.mb_birthday_entry.get()) > 10:
-                self.error_label.config(text="Please enter a valid birthday (YYYY-MM-DD)")
+
+        if self.mb_birthday != '':
+            if self.mb_birthday > d.date.today():
+                self.error_label.config(text="Please enter a valid birthday")
+                return
+            if not isinstance(self.mb_birthday, d.date):
+                self.error_label.config(text="Please enter a valid birthday")
                 return
             else:
                 self.error_label.config(text="")
+            self.mb_birthday = self.mb_birthday.strftime('%Y-%m-%d')
+            edit_dict["mb_birthday"] = self.mb_birthday
+
         if self.mb_phone_entry.get() != '':
             edit_dict["mb_phone"] = self.mb_phone_entry.get()
             if len(self.mb_phone_entry.get()) > 13:
