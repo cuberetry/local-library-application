@@ -35,7 +35,9 @@ class BookViewPage(tk.Frame):
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
+        self.error_label = tk.Label(self, text="", fg="IndianRed1")
         self.update_table()
+        self.error_label.pack(padx=10, pady=2)
 
     def update_table(self):
         self.book_list = m.sql_connection.sql_select("BOOKS")
@@ -44,7 +46,8 @@ class BookViewPage(tk.Frame):
             if i > len(self.book_list)-1:
                 break
             self.table.insert("", 'end', values=self.book_list[i])
-        self.table.place(x=125, y=200)
+        self.table.pack(fill="both", expand=True)
+        self.error_label.config(text='')
 
     def refresh(self):
         self.cur_page = 0
@@ -65,8 +68,14 @@ class BookViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[be.BookEditPage].target = cur_item
             sf.show_frame(be.BookEditPage)
+        self.error_label.config(text='')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
-        m.sql_connection.sql_delete("BOOKS", cur_item['values'][0])
+        if cur_item['values'] == '':
+            self.error_label.config(text='ERROR: Please select a book!')
+            return
+        if not m.sql_connection.sql_delete("BOOKS", cur_item['values'][0]):
+            self.error_label.config(text="ERROR: Cannot delete a book with existing lending record!")
+            return
         self.refresh()

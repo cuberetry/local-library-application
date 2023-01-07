@@ -35,7 +35,9 @@ class LendingViewPage(tk.Frame):
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
+        self.error_label = tk.Label(self, text="", fg="IndianRed1")
         self.update_table()
+        self.error_label.pack(padx=10, pady=2)
 
     def update_table(self):
         self.lending_list = m.sql_connection.sql_select("LENDING")
@@ -45,6 +47,7 @@ class LendingViewPage(tk.Frame):
                 break
             self.table.insert("", 'end', values=self.lending_list[i])
         self.table.place(x=125, y=200)
+        self.error_label.config(text='')
 
     def refresh(self):
         self.cur_page = 0
@@ -65,10 +68,12 @@ class LendingViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[le.LendingEditPage].target = cur_item
             sf.show_frame(le.LendingEditPage)
+        self.error_label.config(text='')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
+            self.error_label.config(text='ERROR: Please select a lending!')
             return
         m.sql_connection.sql_delete("LENDING", cur_item['values'][0])
         self.refresh()
