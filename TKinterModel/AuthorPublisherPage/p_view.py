@@ -70,5 +70,7 @@ class PublisherViewPage(tk.Frame):
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
+        if cur_item['values'] == '':
+            return
         m.sql_connection.sql_delete("PUBLISHER", cur_item['values'][0])
         self.refresh()
