@@ -28,7 +28,9 @@ class LendingAddPage(tk.Frame):
         # Book field
         self.book_label = tk.Label(self, text="No book selected")
         self.book_id_button = tk.Button(self, text="Select a book*",
-                                        command=lambda: self.select_item("BOOKS", self.book_label))
+                                        command=lambda: sf.frames[ss.SelectionPage].show_page(
+                                            "BOOKS", LendingAddPage, self.book_label)
+                                        )
         self.book_id_button.pack(padx=10, pady=2)
         self.book_label.pack(padx=10, pady=2)
 
@@ -38,7 +40,9 @@ class LendingAddPage(tk.Frame):
         # Member field
         self.member_label = tk.Label(self, text="No member selected")
         self.member_id_button = tk.Button(self, text="Select a member*",
-                                          command=lambda: self.select_item("MEMBERS", self.member_label))
+                                          command=lambda: sf.frames[ss.SelectionPage].show_page(
+                                            "MEMBERS", LendingAddPage, self.member_label)
+                                          )
         self.member_id_button.pack(padx=10, pady=2)
         self.member_label.pack(padx=10, pady=2)
 
@@ -110,11 +114,3 @@ class LendingAddPage(tk.Frame):
         # Return user to lending page
         sf.frames[lv.LendingViewPage].refresh()
         sf.show_frame(lv.LendingViewPage)
-
-    @staticmethod
-    def select_item(table, label):
-        sf.frames[ss.SelectionPage].db_table = table
-        sf.frames[ss.SelectionPage].prev_page = LendingAddPage
-        sf.frames[ss.SelectionPage].label = label
-        sf.frames[ss.SelectionPage].update_table()
-        sf.show_frame(ss.SelectionPage)
