@@ -83,7 +83,7 @@ class SQLConnection:
             self.cursor.execute(f"DELETE FROM {table_name} WHERE {pk_col} = {primary_key}")
             self.connection.commit()
             return True
-        except mysql.connector.errors.ProgrammingError as msg:
+        except (mysql.connector.errors.ProgrammingError, mysql.connector.errors.IntegrityError) as msg:
             print("ERROR", msg)
             return False
 

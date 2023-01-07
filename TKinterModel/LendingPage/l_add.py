@@ -102,8 +102,8 @@ class LendingAddPage(tk.Frame):
         # Empty input field
         self.tg_book = None
         self.tg_member = None
-        self.book_label.config(text="No book selected")
-        self.member_label.config(text="No book selected")
+        self.book_label.config(text="Not selected")
+        self.member_label.config(text="Not selected")
         self.error_msg = ""
         self.error_label.config(text=self.error_msg)
 
