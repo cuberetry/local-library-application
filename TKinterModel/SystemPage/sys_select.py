@@ -35,6 +35,12 @@ class SelectionPage(tk.Frame):
             self.columns = ["ID", "Name", "Surname", "Age", "Phone", "E-mail"]
             self.list = m.sql_connection.sql_select(self.db_table, ('mb_id', 'mb_fname', 'mb_lname',
                                                                     'mb_age', 'mb_phone', 'mb_email'))
+        elif self.db_table == 'AUTHOR':
+            self.columns = ["ID", "Firstname", "Lastname"]
+            self.list = m.sql_connection.sql_select(self.db_table)
+        elif self.db_table == 'PUBLISHER':
+            self.columns = ["ID", "Name"]
+            self.list = m.sql_connection.sql_select(self.db_table)
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
@@ -52,6 +58,12 @@ class SelectionPage(tk.Frame):
         if self.db_table == 'MEMBERS':
             sf.frames[self.prev_page].tg_member = self.table.item(self.table.focus())
             self.label.config(text=sf.frames[self.prev_page].tg_member['values'][1] + " " + sf.frames[self.prev_page].tg_member['values'][2])
+        if self.db_table == 'AUTHOR':
+            sf.frames[self.prev_page].tg_author = self.table.item(self.table.focus())
+            self.label.config(text=sf.frames[self.prev_page].tg_author['values'][1] + " " + sf.frames[self.prev_page].tg_author['values'][2])
+        if self.db_table == 'PUBLISHER':
+            sf.frames[self.prev_page].tg_publisher = self.table.item(self.table.focus())
+            self.label.config(text=sf.frames[self.prev_page].tg_publisher['values'][1])
         sf.show_frame(self.prev_page)
         self.target = None
         self.prev_page = None
