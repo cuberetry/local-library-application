@@ -12,7 +12,7 @@ class Homepage(tk.Frame):
         tk.Frame.__init__(self, parent)
         def_font = tkf.Font(family='Courier', size=20, weight='bold')
 
-        label = tk.Label(self, text="This is Home Page")
+        label = tk.Label(self, text="Welcome to the Homepage!")
         label.pack(padx=10, pady=20)
 
         # btn
