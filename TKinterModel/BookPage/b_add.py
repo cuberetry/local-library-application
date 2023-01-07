@@ -57,14 +57,14 @@ class BookAddPage(tk.Frame):
 
         # Submit button
         self.submit_button = tk.Button(
-            self, text='Submit', command=lambda: self.add_to_SQL())
+            self, text='Submit', command=lambda: self.add_to_sql())
         self.submit_button.pack(padx=10, pady=20)
 
         # Error message
         self.error_label = tk.Label(self, text=self.error_msg, fg='IndianRed1')
         self.error_label.pack(padx=10, pady=20)
 
-    def add_to_SQL(self):
+    def add_to_sql(self):
         bk_name = self.book_name_entry.get()
         bk_des = self.book_des_entry.get("1.0", "end")
         auth_id = self.author_id_entry.get()
@@ -90,7 +90,7 @@ class BookAddPage(tk.Frame):
         self.publisher_label.config(text="No publisher selected")
         self.error_msg = ""
         self.error_label.config(text=self.error_msg)
-        
+
         # Insert to SQL
         m.sql_connection.sql_insert(
             'BOOKS', {'b_name': bk_name, 'b_desc': bk_des, 'a_id': auth_id, 'p_id': pub_id})

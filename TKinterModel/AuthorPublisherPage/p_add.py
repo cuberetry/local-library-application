@@ -9,6 +9,7 @@ import __main__ as m
 class PublisherAddPage(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
+        self.error_msg = ''
         self.home_button = tk.Button(self, text='Homepage',
                                      command=lambda: sf.show_frame(sh.Homepage))
         self.home_button.pack(padx=10, pady=20)
