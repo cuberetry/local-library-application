@@ -17,13 +17,13 @@ class AuthorAddPage(tk.Frame):
                                      command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
         self.book_button.pack(padx=10, pady=20)
 
-        self.author_fn_label = tk.Label(self, text="Add Author First Name* (Max 50 Characters)")
+        self.author_fn_label = tk.Label(self, text="Enter Author First Name*")
         self.author_fn_label.pack(padx=10, pady=2)
 
         self.author_fn_entry = tk.Entry(self)
         self.author_fn_entry.pack(padx=10, pady=2)
 
-        self.author_ln_label = tk.Label(self, text="Add Author Last Name (Max 50 Characters)")
+        self.author_ln_label = tk.Label(self, text="Enter Author Last Name")
         self.author_ln_label.pack(padx=10, pady=2)
 
         self.author_ln_entry = tk.Entry(self)

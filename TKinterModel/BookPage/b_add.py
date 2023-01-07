@@ -21,19 +21,25 @@ class BookAddPage(tk.Frame):
         book_button.pack(padx=10, pady=20)
 
         # Book name field
-        self.book_name_label = tk.Label(self, text="Add Book Name*")
+        self.book_name_label = tk.Label(self, text="Enter Book Name*")
         self.book_name_label.pack(padx=10, pady=2)
 
         self.book_name_entry = tk.Entry(self)
         self.book_name_entry.pack(padx=10, pady=2)
 
+        self.space = tk.Label(self)
+        self.space.pack(pady=2)
+
         # Book description field
         self.book_des_label = tk.Label(
-            self, text="Add Book Description (Max 200 Characters)")
+            self, text="Enter Book Description")
         self.book_des_label.pack(padx=10, pady=2)
 
         self.book_des_entry = tk.Text(self, width=60, height=4)
         self.book_des_entry.pack(padx=10, pady=2)
+
+        self.space = tk.Label(self)
+        self.space.pack(pady=2)
 
         # Author field
         self.author_label = tk.Label(self, text="No author selected")
@@ -43,7 +49,7 @@ class BookAddPage(tk.Frame):
         self.author_label.pack(padx=10, pady=2)
 
         self.space = tk.Label(self)
-        self.space.pack(pady=5)
+        self.space.pack(pady=2)
 
         # Publisher field
         self.publisher_label = tk.Label(self, text="No publisher selected")
@@ -53,7 +59,7 @@ class BookAddPage(tk.Frame):
         self.publisher_label.pack(padx=10, pady=2)
 
         self.space = tk.Label(self)
-        self.space.pack(pady=5)
+        self.space.pack(pady=2)
 
         # Submit button
         self.submit_button = tk.Button(
@@ -62,13 +68,11 @@ class BookAddPage(tk.Frame):
 
         # Error message
         self.error_label = tk.Label(self, text=self.error_msg, fg='IndianRed1')
-        self.error_label.pack(padx=10, pady=20)
+        self.error_label.pack(padx=10, pady=5)
 
     def add_to_sql(self):
         bk_name = self.book_name_entry.get()
         bk_des = self.book_des_entry.get("1.0", "end")
-        auth_id = self.author_id_entry.get()
-        pub_id = self.publisher_id_entry.get()
 
         # Check if Book Name is empty
         if bk_name == '' or self.tg_author is None or self.tg_publisher is None:
@@ -80,6 +84,9 @@ class BookAddPage(tk.Frame):
             self.error_msg = "Text exceeded 200 characters"
             self.error_label.config(text=self.error_msg)
             return
+
+        auth_id = self.tg_author['values'][0]
+        pub_id = self.tg_publisher['values'][0]
 
         # Empty input field
         self.book_name_entry.delete(0, "end")
@@ -104,5 +111,6 @@ class BookAddPage(tk.Frame):
         sf.frames[ss.SelectionPage].db_table = table
         sf.frames[ss.SelectionPage].prev_page = BookAddPage
         sf.frames[ss.SelectionPage].label = label
+        sf.frames[ss.SelectionPage].cur_page = 0
         sf.frames[ss.SelectionPage].refresh()
         sf.show_frame(ss.SelectionPage)

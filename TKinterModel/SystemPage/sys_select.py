@@ -34,6 +34,8 @@ class SelectionPage(tk.Frame):
 
     def refresh(self):
         self.columns = None
+        if self.table is not None:
+            self.table.destroy()
         if self.db_table == 'BOOKS':
             self.columns = ["ID", "Name", "Description", "Book Status", "Author ID", "Publisher ID"]
             self.list = m.sql_connection.sql_select(self.db_table)
@@ -55,7 +57,7 @@ class SelectionPage(tk.Frame):
             if i > len(self.list) - 1:
                 break
             self.table.insert("", 'end', values=self.list[i])
-        self.table.pack(fill="both", expand=True, padx=10)
+        self.table.pack(fill="both", padx=10)
 
     def goto_next_page(self):
         if self.cur_page < len(self.list) // 25:
@@ -86,5 +88,5 @@ class SelectionPage(tk.Frame):
         self.db_table = None
         self.list = None
         self.cur_page = 0
-        self.table = None
+        # self.table = None
         self.label = None
