@@ -31,8 +31,8 @@ class MemberViewPage(tk.Frame):
 
         # Init DB connection and table
         self.member_list = m.sql_connection.sql_select("MEMBERS")
-        self.columns = ["mb_id", "mb_fname", "mb_lname", "mb_age", "mb_birthday", "mb_phone", "mb_email",
-                        "mb_national_id", "mb_passport_id", "mb_address"]
+        self.columns = ["ID", "First Name", "Last Name", "Age", "Birthday", "Phone", "Email",
+                        "National ID", "Passport ID", "Address"]
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())

@@ -44,7 +44,7 @@ class BookViewPage(tk.Frame):
             if i > len(self.book_list)-1:
                 break
             self.table.insert("", 'end', values=self.book_list[i])
-        self.table.place(x=125, y=200)
+        self.table.pack(fill="both", expand=True)
 
     def refresh(self):
         self.cur_page = 0

@@ -38,7 +38,7 @@ class AuthorViewPage(tk.Frame):
 
         # Init DB connection and table
         self.author_list = m.sql_connection.sql_select("AUTHOR")
-        self.columns = ["ID", "Firstname", "Lastname"]
+        self.columns = ["ID", "First Name", "Last Name"]
         self.table = ttk.Treeview(
             self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
