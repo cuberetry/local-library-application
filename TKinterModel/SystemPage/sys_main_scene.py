@@ -27,12 +27,12 @@ class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        # configure the root window
+        # Configure the root window
         self.title('Local Library Application')
         self.geometry('650x550')
         self.attributes('-fullscreen', True)
 
-        # label Title
+        # Label title
         self.label = tk.Label(text="Local Library", font=(
             'Times New Roman bold', 20), background="#34A2FE")
         self.label.pack(padx=10, pady=20)
@@ -56,7 +56,7 @@ class App(tk.Tk):
 
         sf.show_frame(sh.Homepage)
 
-        # Create a Button
+        # Create exit button
         self.btn_exit = tk.Button(self, text='exit', bd='15')
         self.btn_exit['command'] = self.button_clicked
         self.btn_exit.pack(side='top')

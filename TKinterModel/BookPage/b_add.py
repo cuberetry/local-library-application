@@ -31,8 +31,7 @@ class BookAddPage(tk.Frame):
         self.space.pack(pady=2)
 
         # Book description field
-        self.book_des_label = tk.Label(
-            self, text="Enter Book Description")
+        self.book_des_label = tk.Label(self, text="Enter Book Description")
         self.book_des_label.pack(padx=10, pady=2)
 
         self.book_des_entry = tk.Text(self, width=60, height=4)

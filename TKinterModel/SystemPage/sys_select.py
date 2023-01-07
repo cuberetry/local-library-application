@@ -53,7 +53,7 @@ class SelectionPage(tk.Frame):
             self.list = m.sql_connection.sql_select(self.db_table, ('mb_id', 'mb_fname', 'mb_lname',
                                                                     'mb_age', 'mb_phone', 'mb_email'))
         elif self.db_table == 'AUTHOR':
-            self.columns = ["ID", "Firstname", "Lastname"]
+            self.columns = ["ID", "Name", "Surname"]
             self.list = m.sql_connection.sql_select(self.db_table)
         elif self.db_table == 'PUBLISHER':
             self.columns = ["ID", "Name"]
