@@ -17,12 +17,14 @@ class PublisherAddPage(tk.Frame):
                                      command=lambda: sf.show_frame(apm.AuthorPublisherMainPage))
         self.book_button.pack(padx=10, pady=20)
 
-        self.p_name_l = tk.Label(self, text='Add Publisher Name* (Max 100 Characters)')
+        self.p_name_l = tk.Label(self, text='Enter Publisher Name')
         self.p_name_l.pack(padx=10, pady=2)
+
         self.p_name_e = tk.Entry(self)
         self.p_name_e.pack(padx=10, pady=2)
 
-        self.p_submit = tk.Button(self, text='Submit', command=lambda: self.p_add())
+        self.p_submit = tk.Button(
+            self, text='Submit', command=lambda: self.p_add())
         self.p_submit.pack(padx=10, pady=20)
 
         self.error_label = tk.Label(self, text="", fg="IndianRed1")
