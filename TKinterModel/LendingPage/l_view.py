@@ -46,7 +46,7 @@ class LendingViewPage(tk.Frame):
             if i > len(self.lending_list)-1:
                 break
             self.table.insert("", 'end', values=self.lending_list[i])
-        self.table.place(x=125, y=200)
+        self.table.pack(fill="both", expand=True)
         self.error_label.config(text='')
 
     def refresh(self):
@@ -65,15 +65,18 @@ class LendingViewPage(tk.Frame):
 
     def return_item(self):
         cur_item = self.table.item(self.table.focus())
-        if cur_item['values'] != "":
-            sf.frames[le.LendingEditPage].target = cur_item
-            sf.show_frame(le.LendingEditPage)
+        if cur_item['values'] == "":
+            self.error_label.config(text='Please select a lending!')
+            return
+        sf.frames[le.LendingEditPage].target = cur_item
+        sf.show_frame(le.LendingEditPage)
         self.error_label.config(text='')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
-            self.error_label.config(text='ERROR: Please select a lending!')
+            self.error_label.config(text='Please select a lending!')
             return
         m.sql_connection.sql_delete("LENDING", cur_item['values'][0])
+        self.error_label.config(text='')
         self.refresh()
