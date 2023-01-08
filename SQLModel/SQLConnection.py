@@ -48,6 +48,14 @@ class SQLConnection:
             print("ERROR", msg)
             return False
 
+    def sql_select_joint_fk(self, table_name=str):
+        try:
+            self.cursor.execute(f"SELECT * FROM {table_name}")
+            return self.cursor.fetchall()
+        except (mysql.connector.errors.ProgrammingError, TypeError) as msg:
+            print("ERROR", msg)
+            return False
+
     def sql_insert(self, table_name=str, data_dict=dict):
         try:
             key_list = []
