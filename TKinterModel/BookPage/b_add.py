@@ -56,7 +56,7 @@ class BookAddPage(tk.Frame):
         self.publisher_label = tk.Label(self, text="No publisher selected")
         self.publisher_id_button = tk.Button(self, text="Select a publisher*",
                                              command=lambda: sf.frames[ss.SelectionPage].show_page(
-                                                 "PUBLISHER", BookAddPage, self.author_label
+                                                 "PUBLISHER", BookAddPage, self.publisher_label
                                              ))
         self.publisher_id_button.pack(padx=10, pady=2)
         self.publisher_label.pack(padx=10, pady=2)

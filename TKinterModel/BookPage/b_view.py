@@ -68,12 +68,12 @@ class BookViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[be.BookEditPage].target = cur_item
             sf.show_frame(be.BookEditPage)
-        self.error_label.config(text='')
+        self.error_label.config(text='Please select a book!')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
-            self.error_label.config(text='ERROR: Please select a book!')
+            self.error_label.config(text='Please select a book!')
             return
         if not m.sql_connection.sql_delete("BOOKS", cur_item['values'][0]):
             self.error_label.config(text="ERROR: Cannot delete a book with existing lending record!")
