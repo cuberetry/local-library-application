@@ -45,8 +45,12 @@ class AuthorAddPage(tk.Frame):
             self.error_msg = "Please fill all the required field(s)!"
             self.error_label.config(text=self.error_msg)
             return
-        elif len(a_fname) > 50 or len(a_lname) > 50:
-            self.error_msg = "Text exceeded 50 characters"
+        elif len(a_fname) > 50:
+            self.error_msg = "First name exceeded 50 characters"
+            self.error_label.config(text=self.error_msg)
+            return
+        elif len(a_lname) > 50:
+            self.error_msg = "Last name exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
         else:

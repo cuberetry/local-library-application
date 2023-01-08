@@ -34,8 +34,8 @@ class PublisherEditPage(tk.Frame):
         edit_dict = dict()
         if self.p_name_entry.get() != '':
             edit_dict["p_name"] = self.p_name_entry.get()
-        if len(self.p_name_entry.get()) > 200:
-            self.error_label.config(text="Text exceeded 200 characters")
+        if len(self.p_name_entry.get()) > 100:
+            self.error_label.config(text="Name exceeded 100 characters")
             return
         else:
             self.error_label.config(text="")

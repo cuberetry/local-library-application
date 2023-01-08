@@ -93,12 +93,12 @@ class MemberAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
         elif len(mb_fname) > 50:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "First name exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_lname) > 50:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "Last name exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
 
@@ -113,22 +113,22 @@ class MemberAddPage(tk.Frame):
             return
 
         elif len(mb_email) > 50:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "Email exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_national_id) > 13:
-            self.error_msg = "Phone number exceeded 13 digits"
+            self.error_msg = "National ID number exceeded 13 digits"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_passport_id) > 8:
-            self.error_msg = "Text exceeded 8 characters"
+            self.error_msg = "Passport ID exceeded 8 characters"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_address) > 100:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "Address exceeded 100 characters"
             self.error_label.config(text=self.error_msg)
             return
 

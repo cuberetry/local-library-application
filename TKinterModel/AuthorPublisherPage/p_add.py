@@ -39,7 +39,7 @@ class PublisherAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
         elif len(p_name) > 100:
-            self.error_msg = "Text exceeded 100 characters"
+            self.error_msg = "Name exceeded 100 characters"
             self.error_label.config(text=self.error_msg)
             return
         else:

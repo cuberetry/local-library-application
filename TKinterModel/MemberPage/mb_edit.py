@@ -107,13 +107,13 @@ class MemberEditPage(tk.Frame):
         mb_address = self.mb_address_entry.get()
         if mb_fname != '':
             if len(mb_fname) > 50:
-                self.error_msg = "Text exceeded 50 characters"
+                self.error_msg = "First name exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
             edit_dict["mb_fname"] = mb_fname
         if mb_lname != '':
             if len(mb_lname) > 50:
-                self.error_msg = "Text exceeded 50 characters"
+                self.error_msg = "Last name exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
             edit_dict["mb_lname"] = mb_lname
@@ -135,25 +135,25 @@ class MemberEditPage(tk.Frame):
             edit_dict["mb_phone"] = mb_phone
         if mb_email != '':
             if len(mb_email) > 50:
-                self.error_msg = "Text exceeded 50 characters"
+                self.error_msg = "Email exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
             edit_dict["mb_email"] = mb_email
         if mb_national_id != '':
             if len(mb_national_id) > 13:
-                self.error_msg = "Phone number exceeded 13 digits"
+                self.error_msg = "National ID exceeded 13 digits"
                 self.error_label.config(text=self.error_msg)
                 return
             edit_dict["mb_national_id"] = mb_national_id
         if mb_passport_id != '':
             if len(mb_passport_id) > 8:
-                self.error_msg = "Text exceeded 8 characters"
+                self.error_msg = "Passport ID exceeded 8 characters"
                 self.error_label.config(text=self.error_msg)
                 return
             edit_dict["mb_passport_id"] = mb_passport_id
         if mb_address != '':
             if len(mb_address) > 100:
-                self.error_msg = "Text exceeded 50 characters"
+                self.error_msg = "Address exceeded 100 characters"
                 self.error_label.config(text=self.error_msg)
                 return
             edit_dict["mb_address"] = mb_address

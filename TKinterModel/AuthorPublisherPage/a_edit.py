@@ -46,13 +46,13 @@ class AuthorEditPage(tk.Frame):
         if self.a_fname_entry.get() != '':
             edit_dict["a_fname"] = self.a_fname_entry.get()
             if len(self.a_fname_entry.get()) > 50:
-                self.error_msg = "Text exceeded 50 characters"
+                self.error_msg = "First name exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
         if self.a_lname_entry.get() != '':
             edit_dict["a_lname"] = self.a_lname_entry.get()
             if len(self.a_lname_entry.get()) > 50:
-                self.error_msg = "Text exceeded 50 characters"
+                self.error_msg = "Last name exceeded 50 characters"
                 self.error_label.config(text=self.error_msg)
                 return
         m.sql_connection.sql_update(
