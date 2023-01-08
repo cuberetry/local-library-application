@@ -1,4 +1,3 @@
-from datetime import datetime
 from datetime import date
 from TKinterModel.SystemPage.sys_main_scene import *
 from SQLModel.SQLConnection import *
