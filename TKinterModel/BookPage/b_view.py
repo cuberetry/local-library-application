@@ -30,8 +30,8 @@ class BookViewPage(tk.Frame):
         edit_button.pack(padx=0, pady=0, side=tk.BOTTOM)
 
         # Init DB connection and table
-        self.book_list = m.sql_connection.sql_select("BOOKS")
-        self.columns = ["ID", "Name", "Description", "Book Status", "Author ID", "Publisher ID"]
+        self.book_list = m.sql_connection.sql_select_joint_fk("BOOKS")
+        self.columns = ["ID", "Name", "Description", "Book Status", "Author", "Publisher"]
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
             self.table.heading(col, text=col.title())
@@ -40,7 +40,7 @@ class BookViewPage(tk.Frame):
         self.error_label.pack(padx=10, pady=2)
 
     def update_table(self):
-        self.book_list = m.sql_connection.sql_select("BOOKS")
+        self.book_list = m.sql_connection.sql_select_joint_fk("BOOKS")
         self.table.delete(*self.table.get_children())
         for i in range(self.cur_page*25, (self.cur_page*25)+25):
             if i > len(self.book_list)-1:

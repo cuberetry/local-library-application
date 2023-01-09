@@ -70,10 +70,19 @@ class SQLConnection:
             if table_name not in self.sql_get_table():
                 raise Exception("table name does not match any existing tables")
             if table_name == 'BOOKS':
-                pass
-            elif table_name == '':
-                pass
-            self.cursor.execute(f"SELECT * FROM {table_name}")
+                self.cursor.execute("SELECT b_id, b_name, b_desc, b_status, "
+                                    "CONCAT(AUTHOR.a_fname, ' ', AUTHOR.a_lname) AS a_fullname, "
+                                    "PUBLISHER.p_name FROM BOOKS "
+                                    "LEFT JOIN AUTHOR ON BOOKS.a_id = AUTHOR.a_id "
+                                    "LEFT JOIN PUBLISHER ON BOOKS.p_id = PUBLISHER.p_id")
+            elif table_name == 'LENDING':
+                self.cursor.execute("SELECT l_id, l_start_date, l_due_date, l_return_date, "
+                                    "CONCAT(MEMBERS.mb_fname, ' ', MEMBERS.mb_lname) AS mb_fullname, "
+                                    "BOOKS.b_name FROM LENDING "
+                                    "LEFT JOIN MEMBERS ON LENDING.mb_id = LENDING.mb_id "
+                                    "LEFT JOIN BOOKS ON LENDING.b_id = BOOKS.b_id")
+            else:
+                raise Exception("table does not have existing select joint format")
             return self.cursor.fetchall()
         except (mysql.connector.errors.ProgrammingError, TypeError, Exception) as msg:
             print("ERROR", msg)
