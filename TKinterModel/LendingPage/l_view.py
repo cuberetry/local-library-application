@@ -30,7 +30,7 @@ class LendingViewPage(tk.Frame):
         edit_button.pack(padx=0, pady=0, side=tk.BOTTOM)
 
         # Init DB connection and table
-        self.lending_list = m.sql_connection.sql_select("LENDING")
+        self.lending_list = m.sql_connection.sql_select_joint_fk("LENDING")
         self.columns = ["ID", "Start Date", "Due Date", "Return Date", "Member", "Book"]
         self.table = ttk.Treeview(self, columns=self.columns, show="headings", height=27)
         for col in self.columns:
@@ -40,13 +40,13 @@ class LendingViewPage(tk.Frame):
         self.error_label.pack(padx=10, pady=2)
 
     def update_table(self):
-        self.lending_list = m.sql_connection.sql_select("LENDING")
+        self.lending_list = m.sql_connection.sql_select_joint_fk("LENDING")
         self.table.delete(*self.table.get_children())
         for i in range(self.cur_page*25, (self.cur_page*25)+25):
             if i > len(self.lending_list)-1:
                 break
             self.table.insert("", 'end', values=self.lending_list[i])
-        self.table.place(x=125, y=200)
+        self.table.pack(fill="both", expand=True)
         self.error_label.config(text='')
 
     def refresh(self):
@@ -65,15 +65,18 @@ class LendingViewPage(tk.Frame):
 
     def return_item(self):
         cur_item = self.table.item(self.table.focus())
-        if cur_item['values'] != "":
-            sf.frames[le.LendingEditPage].target = cur_item
-            sf.show_frame(le.LendingEditPage)
+        if cur_item['values'] == "":
+            self.error_label.config(text='Please select a lending!')
+            return
+        sf.frames[le.LendingEditPage].target = cur_item
+        sf.show_frame(le.LendingEditPage)
         self.error_label.config(text='')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
-            self.error_label.config(text='ERROR: Please select a lending!')
+            self.error_label.config(text='Please select a lending!')
             return
         m.sql_connection.sql_delete("LENDING", cur_item['values'][0])
+        self.error_label.config(text='')
         self.refresh()
