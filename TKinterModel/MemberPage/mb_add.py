@@ -31,12 +31,6 @@ class MemberAddPage(tk.Frame):
         self.member_ln_entry = tk.Entry(self)
         self.member_ln_entry.pack(padx=10, pady=2)
 
-        self.member_age_label = tk.Label(self, text="Enter member Age")
-        self.member_age_label.pack(padx=10, pady=2)
-
-        self.member_age_entry = tk.Entry(self)
-        self.member_age_entry.pack(padx=10, pady=2)
-
         self.member_bd_label = tk.Label(self, text="Enter member Birthday")
         self.member_bd_label.pack(padx=10, pady=2)
 
@@ -87,7 +81,6 @@ class MemberAddPage(tk.Frame):
     def add_to_sql(self):
         mb_fname = self.member_fn_entry.get()
         mb_lname = self.member_ln_entry.get()
-        mb_age = self.member_age_entry.get()
         mb_birthday = self.member_bd_entry.get_date()
         mb_phone = self.member_phone_entry.get()
         mb_email = self.member_email_entry.get()
@@ -100,22 +93,12 @@ class MemberAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
         elif len(mb_fname) > 50:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "First name exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_lname) > 50:
-            self.error_msg = "Text exceeded 50 characters"
-            self.error_label.config(text=self.error_msg)
-            return
-
-        elif len(mb_age) > 3:
-            self.error_msg = "Age exceeded 3 digits"
-            self.error_label.config(text=self.error_msg)
-            return
-
-        elif mb_age != '' and mb_age.isnumeric() is False:
-            self.error_msg = "Please enter a valid age"
+            self.error_msg = "Last name exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
 
@@ -130,35 +113,41 @@ class MemberAddPage(tk.Frame):
             return
 
         elif len(mb_email) > 50:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "Email exceeded 50 characters"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_national_id) > 13:
-            self.error_msg = "Phone number exceeded 13 digits"
+            self.error_msg = "National ID number exceeded 13 digits"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_passport_id) > 8:
-            self.error_msg = "Text exceeded 8 characters"
+            self.error_msg = "Passport ID exceeded 8 characters"
             self.error_label.config(text=self.error_msg)
             return
 
         elif len(mb_address) > 100:
-            self.error_msg = "Text exceeded 50 characters"
+            self.error_msg = "Address exceeded 100 characters"
             self.error_label.config(text=self.error_msg)
             return
 
+        today = d.date.today()
+        try:
+            age = today.year - mb_birthday.year - ((today.month, today.day) < (mb_birthday.month, mb_birthday.day))
+        except AttributeError:
+            age = None
         mb_birthday = mb_birthday.strftime('%Y-%m-%d')
 
         # Insert to SQL
-        m.sql_connection.sql_insert('MEMBERS', {'mb_fname': mb_fname, 'mb_lname': mb_lname, 'mb_age': int(mb_age), 'mb_birthday': mb_birthday,
-                                    'mb_phone': mb_phone, 'mb_email': mb_email, 'mb_national_id': mb_national_id, 'mb_passport_id': mb_passport_id, 'mb_address': mb_address})
+        m.sql_connection.sql_insert('MEMBERS', {'mb_fname': mb_fname, 'mb_lname': mb_lname, 'mb_birthday': mb_birthday,
+                                                'mb_age': age, 'mb_phone': mb_phone, 'mb_email': mb_email,
+                                                'mb_national_id': mb_national_id, 'mb_passport_id': mb_passport_id,
+                                                'mb_address': mb_address})
 
         # Empty input field
         self.member_fn_entry.delete(0, "end")
         self.member_ln_entry.delete(0, "end")
-        self.member_age_entry.delete(0, "end")
         self.member_bd_entry.delete(0, "end")
         self.member_phone_entry.delete(0, "end")
         self.member_email_entry.delete(0, "end")
