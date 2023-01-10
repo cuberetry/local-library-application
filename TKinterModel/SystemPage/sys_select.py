@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import TKinterModel.SystemPage.sys_frame as sf
+import TKinterModel.LendingPage.l_add as la
 import __main__ as m
 
 
@@ -38,7 +39,6 @@ class SelectionPage(tk.Frame):
         # Init DB connection and table
         self.columns = None
         self.table = None
-        self.update_table()
 
     def update_table(self):
         self.cur_page = 0
@@ -48,10 +48,10 @@ class SelectionPage(tk.Frame):
         self.columns = None
         if self.table is not None:
             self.table.destroy()
-        if self.db_table == 'BOOKS':
+        if self.db_table == 'BOOKS' and type(self.prev_page) == type(la.LendingAddPage):
             self.columns = ["ID", "Name", "Description",
                             "Book Status", "Author ID", "Publisher ID"]
-            self.list = m.sql_connection.sql_select(self.db_table)
+            self.list = m.sql_connection.sql_select(self.db_table, conditions={'b_status': 1})
         elif self.db_table == 'MEMBERS':
             self.columns = ["ID", "Name", "Surname", "Age", "Phone", "E-mail"]
             self.list = m.sql_connection.sql_select(self.db_table, ('mb_id', 'mb_fname', 'mb_lname',
