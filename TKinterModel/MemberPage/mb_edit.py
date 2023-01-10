@@ -38,7 +38,10 @@ class MemberEditPage(tk.Frame):
         self.member_bd_label = tk.Label(self, text="Edit member Birthday")
         self.member_bd_label.pack(padx=10, pady=2)
 
-        self.member_bd_entry = DateEntry(self)
+        self.mbd = tk.StringVar()
+        self.member_bd_entry = DateEntry(self, textvariable=self.mbd)
+        self.member_bd_entry.configure(validate='none')
+        self.mbd.set('')
         self.member_bd_entry.delete(0, "end")
         self.member_bd_entry.pack(padx=10, pady=2)
 
@@ -98,7 +101,7 @@ class MemberEditPage(tk.Frame):
         edit_dict = dict()
         mb_fname = self.mb_fname_entry.get()
         mb_lname = self.mb_lname_entry.get()
-        mb_birthday = self.member_bd_entry.get_date()
+        mb_birthday = self.mbd.get()
         mb_phone = self.mb_phone_entry.get()
         mb_email = self.mb_email_entry.get()
         mb_national_id = self.mb_national_id_entry.get()
@@ -126,6 +129,7 @@ class MemberEditPage(tk.Frame):
             mb_birthday = mb_birthday.strftime('%Y-%m-%d')
             edit_dict["mb_age"] = age
             edit_dict["mb_birthday"] = mb_birthday
+        edit_dict["mb_age"] = 1
         if mb_phone != '':
             if len(mb_phone) > 13:
                 self.error_msg = "Phone number exceeded 13 digits"
@@ -161,6 +165,7 @@ class MemberEditPage(tk.Frame):
         # Empty input field
         self.mb_fname_entry.delete(0, "end")
         self.mb_lname_entry.delete(0, "end")
+        self.mbd.set('')
         self.member_bd_entry.delete(0, "end")
         self.mb_phone_entry.delete(0, "end")
         self.mb_email_entry.delete(0, "end")
