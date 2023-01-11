@@ -34,11 +34,14 @@ class MemberAddPage(tk.Frame):
         self.member_bd_label = tk.Label(self, text="Enter member Birthday")
         self.member_bd_label.pack(padx=10, pady=2)
 
-        self.member_bd_entry = DateEntry(self)
+        self.mbd = tk.StringVar()
+        self.member_bd_entry = DateEntry(self, textvariable=self.mbd, locale='en_US', date_pattern='yyyy-mm-dd')
+        self.member_bd_entry.configure(validate='none')
+        self.mbd.set('')
+        self.member_bd_entry.delete(0, "end")
         self.member_bd_entry.pack(padx=10, pady=2)
 
-        self.member_phone_label = tk.Label(
-            self, text="Enter member Phone number")
+        self.member_phone_label = tk.Label(self, text="Enter member Phone number")
         self.member_phone_label.pack(padx=10, pady=2)
 
         self.member_phone_entry = tk.Entry(self)
@@ -81,12 +84,13 @@ class MemberAddPage(tk.Frame):
     def add_to_sql(self):
         mb_fname = self.member_fn_entry.get()
         mb_lname = self.member_ln_entry.get()
-        mb_birthday = self.member_bd_entry.get_date()
+        mb_birthday = self.mbd.get()
         mb_phone = self.member_phone_entry.get()
         mb_email = self.member_email_entry.get()
         mb_national_id = self.member_national_id_entry.get()
         mb_passport_id = self.member_passport_id_entry.get()
         mb_address = self.member_address_entry.get()
+        age = 'NULL'
 
         if mb_fname == '' or mb_lname == '':
             self.error_msg = "Please fill the all the required field(s)"
@@ -99,11 +103,6 @@ class MemberAddPage(tk.Frame):
 
         elif len(mb_lname) > 50:
             self.error_msg = "Last name exceeded 50 characters"
-            self.error_label.config(text=self.error_msg)
-            return
-
-        elif mb_birthday > d.date.today():
-            self.error_msg = "Please enter a valid birthday"
             self.error_label.config(text=self.error_msg)
             return
 
@@ -131,13 +130,24 @@ class MemberAddPage(tk.Frame):
             self.error_msg = "Address exceeded 100 characters"
             self.error_label.config(text=self.error_msg)
             return
-
-        today = d.date.today()
-        try:
+        if mb_birthday != '':
+            try:
+                mb_birthday = d.datetime.strptime(mb_birthday, '%Y-%m-%d').date()
+            except ValueError:
+                self.error_msg = "Please enter a valid birthday"
+                self.error_label.config(text=self.error_msg)
+                return
+            if mb_birthday > d.date.today():
+                self.error_msg = "Please enter a valid birthday"
+                self.error_label.config(text=self.error_msg)
+                return
+            today = d.date.today()
             age = today.year - mb_birthday.year - ((today.month, today.day) < (mb_birthday.month, mb_birthday.day))
-        except AttributeError:
-            age = None
-        mb_birthday = mb_birthday.strftime('%Y-%m-%d')
+            mb_birthday = mb_birthday.strftime('%Y-%m-%d')
+            mb_birthday = mb_birthday
+        else:
+            mb_birthday = 'NULL'
+            age = 'NULL'
 
         # Insert to SQL
         m.sql_connection.sql_insert('MEMBERS', {'mb_fname': mb_fname, 'mb_lname': mb_lname, 'mb_birthday': mb_birthday,
