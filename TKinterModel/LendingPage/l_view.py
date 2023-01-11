@@ -2,8 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
+import TKinterModel.SystemPage.sys_select as ss
 import TKinterModel.LendingPage.l_main as lm
 import TKinterModel.LendingPage.l_edit as le
+import TKinterModel.BookPage.b_view as bv
 import __main__ as m
 
 
@@ -68,6 +70,9 @@ class LendingViewPage(tk.Frame):
         if cur_item['values'] == "":
             self.error_label.config(text='Please select a lending!')
             return
+        if m.sql_connection.sql_select("LENDING", 'l_return_date', {'l_id': cur_item['values'][0]}) is not None:
+            self.error_label.config(text='Book already returned')
+            return
         sf.frames[le.LendingEditPage].target = cur_item
         sf.show_frame(le.LendingEditPage)
         self.error_label.config(text='')
@@ -77,6 +82,11 @@ class LendingViewPage(tk.Frame):
         if cur_item['values'] == '':
             self.error_label.config(text='Please select a lending!')
             return
+        if m.sql_connection.sql_select("LENDING", 'l_return_date', {'l_id': cur_item['values'][0]}) is None:
+            book_id = m.sql_connection.sql_select('LENDING', 'b_id', {'l_id': cur_item['values'][0]})
+            m.sql_connection.sql_update('BOOKS', book_id, {'b_status': 1})
+            sf.frames[bv.BookViewPage].refresh()
+            sf.frames[ss.SelectionPage].refresh()
         m.sql_connection.sql_delete("LENDING", cur_item['values'][0])
         self.error_label.config(text='')
         self.refresh()
