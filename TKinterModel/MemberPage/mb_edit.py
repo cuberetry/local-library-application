@@ -38,7 +38,10 @@ class MemberEditPage(tk.Frame):
         self.member_bd_label = tk.Label(self, text="Edit member Birthday")
         self.member_bd_label.pack(padx=10, pady=2)
 
-        self.member_bd_entry = DateEntry(self, locale='en_US', date_pattern='yyyy-mm-dd')
+        self.mbd = tk.StringVar()
+        self.member_bd_entry = DateEntry(self, textvariable=self.mbd, locale='en_US', date_pattern='yyyy-mm-dd')
+        self.member_bd_entry.configure(validate='none')
+        self.mbd.set('')
         self.member_bd_entry.delete(0, "end")
         self.member_bd_entry.pack(padx=10, pady=2)
 
@@ -59,13 +62,11 @@ class MemberEditPage(tk.Frame):
         self.mb_email_entry.pack(padx=10, pady=2)
 
         # Edit member national id
-        self.mb_national_id_label = tk.Label(
-            self, text="Edit Member National ID")
+        self.mb_national_id_label = tk.Label(self, text="Edit Member National ID")
         self.mb_national_id_label.pack(padx=10, pady=2)
 
         self.mb_national_id = tk.StringVar()
-        self.mb_national_id_entry = tk.Entry(
-            self, textvariable=self.mb_national_id)
+        self.mb_national_id_entry = tk.Entry(self, textvariable=self.mb_national_id)
         self.mb_national_id_entry.pack(padx=10, pady=2)
 
         # Edit member passport id
@@ -95,11 +96,10 @@ class MemberEditPage(tk.Frame):
         self.target = None
 
     def edit_book(self):
-        self.member_bd_entry.delete(0, "end")
         edit_dict = dict()
         mb_fname = self.mb_fname_entry.get()
         mb_lname = self.mb_lname_entry.get()
-        mb_birthday = self.member_bd_entry.get()
+        mb_birthday = self.mbd.get()
         mb_phone = self.mb_phone_entry.get()
         mb_email = self.mb_email_entry.get()
         mb_national_id = self.mb_national_id_entry.get()
@@ -118,7 +118,12 @@ class MemberEditPage(tk.Frame):
                 return
             edit_dict["mb_lname"] = mb_lname
         if mb_birthday != '':
-            mb_birthday = d.datetime.strptime(mb_birthday, '%Y-%m-%d').date()
+            try:
+                mb_birthday = d.datetime.strptime(mb_birthday, '%Y-%m-%d').date()
+            except ValueError:
+                self.error_msg = "Please enter a valid birthday"
+                self.error_label.config(text=self.error_msg)
+                return
             if mb_birthday > d.date.today():
                 self.error_msg = "Please enter a valid birthday"
                 self.error_label.config(text=self.error_msg)
@@ -163,6 +168,7 @@ class MemberEditPage(tk.Frame):
         # Empty input field
         self.mb_fname_entry.delete(0, "end")
         self.mb_lname_entry.delete(0, "end")
+        self.mbd.set('')
         self.member_bd_entry.delete(0, "end")
         self.mb_phone_entry.delete(0, "end")
         self.mb_email_entry.delete(0, "end")
@@ -171,7 +177,6 @@ class MemberEditPage(tk.Frame):
         self.mb_address_entry.delete(0, "end")
         self.error_msg = ""
         self.error_label.config(text=self.error_msg)
-        print(edit_dict)
 
         # Return user to lending page
         sf.frames[mv.MemberViewPage].refresh()
