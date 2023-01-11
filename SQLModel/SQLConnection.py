@@ -102,6 +102,8 @@ class SQLConnection:
             key_list = []
             value_list = []
             for col in data_dict:
+                if data_dict[col] == 'NULL':
+                    continue
                 key_list.append(col)
                 value_list.append(data_dict[col])
             key_list = ", ".join(key_list)
@@ -122,6 +124,8 @@ class SQLConnection:
                 raise Exception("table name does not match any existing tables")
             pk_col = self.sql_get_pk(table_name)
             for col in data_dict:
+                if data_dict[col] == 'NULL':
+                    continue
                 self.cursor.execute(f"UPDATE {table_name} SET {col} = '{data_dict[col]}' WHERE {pk_col} = '{primary_key}'")
             self.connection.commit()
             return True

@@ -42,7 +42,7 @@ class BookAddPage(tk.Frame):
 
         # Author field
         self.author_label = tk.Label(self, text="No author selected")
-        self.author_id_button = tk.Button(self, text="Select a author*",
+        self.author_id_button = tk.Button(self, text="Select a author",
                                           command=lambda: sf.frames[ss.SelectionPage].show_page(
                                               "AUTHOR", BookAddPage, self.author_label
                                           ))
@@ -54,7 +54,7 @@ class BookAddPage(tk.Frame):
 
         # Publisher field
         self.publisher_label = tk.Label(self, text="No publisher selected")
-        self.publisher_id_button = tk.Button(self, text="Select a publisher*",
+        self.publisher_id_button = tk.Button(self, text="Select a publisher",
                                              command=lambda: sf.frames[ss.SelectionPage].show_page(
                                                  "PUBLISHER", BookAddPage, self.publisher_label
                                              ))
@@ -78,7 +78,7 @@ class BookAddPage(tk.Frame):
         bk_des = self.book_des_entry.get("1.0", "end")
 
         # Check if Book Name is empty
-        if bk_name == '' or self.tg_author is None or self.tg_publisher is None:
+        if bk_name == '':
             self.error_msg = "Please fill all the required field(s)!"
             self.error_label.config(text=self.error_msg)
             return
@@ -88,8 +88,14 @@ class BookAddPage(tk.Frame):
             self.error_label.config(text=self.error_msg)
             return
 
-        auth_id = self.tg_author['values'][0]
-        pub_id = self.tg_publisher['values'][0]
+        if self.tg_author is not None:
+            auth_id = self.tg_author['values'][0]
+        else:
+            auth_id = 'NULL'
+        if self.tg_publisher is not None:
+            pub_id = self.tg_publisher['values'][0]
+        else:
+            pub_id = 'NULL'
 
         # Empty input field
         self.book_name_entry.delete(0, "end")
