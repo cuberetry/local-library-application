@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import TKinterModel.SystemPage.sys_frame as sf
+import TKinterModel.LendingPage.l_add as la
 import __main__ as m
 
 
@@ -9,7 +10,7 @@ class SelectionPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.target = None
         self.prev_page = None
-        self.db_table = None
+        self.db_table = "BOOKS"
         self.list = None
         self.cur_page = 0
         self.label = None
@@ -32,6 +33,9 @@ class SelectionPage(tk.Frame):
             self, text='Prev', command=lambda: self.goto_prev_page())
         self.prev_button.pack(padx=0, pady=20, side=tk.LEFT)
 
+        self.error_label = tk.Label(self, text="", fg="IndianRed1")
+        self.error_label.pack()
+
         # Init DB connection and table
         self.columns = None
         self.table = None
@@ -44,10 +48,10 @@ class SelectionPage(tk.Frame):
         self.columns = None
         if self.table is not None:
             self.table.destroy()
-        if self.db_table == 'BOOKS':
+        if self.db_table == 'BOOKS' and type(self.prev_page) == type(la.LendingAddPage):
             self.columns = ["ID", "Name", "Description",
                             "Book Status", "Author ID", "Publisher ID"]
-            self.list = m.sql_connection.sql_select(self.db_table)
+            self.list = m.sql_connection.sql_select(self.db_table, conditions={'b_status': 1})
         elif self.db_table == 'MEMBERS':
             self.columns = ["ID", "Name", "Surname", "Age", "Phone", "E-mail"]
             self.list = m.sql_connection.sql_select(self.db_table, ('mb_id', 'mb_fname', 'mb_lname',
@@ -68,6 +72,7 @@ class SelectionPage(tk.Frame):
                 break
             self.table.insert("", 'end', values=self.list[i])
         self.table.pack(fill="both", padx=10)
+        self.error_label.config(text="")
 
     def goto_next_page(self):
         if self.cur_page < len(self.list) // 25:
@@ -80,33 +85,36 @@ class SelectionPage(tk.Frame):
         self.refresh()
 
     def select_item(self):
-        if self.db_table == 'BOOKS':
+        if self.table.item(self.table.focus())['values'] == '':
+            self.error_label.config(text="Please select an item!")
+            return
+        elif self.db_table == 'BOOKS':
             sf.frames[self.prev_page].tg_book = self.table.item(
                 self.table.focus())
             self.label.config(
                 text=sf.frames[self.prev_page].tg_book['values'][1])
-        if self.db_table == 'MEMBERS':
+        elif self.db_table == 'MEMBERS':
             sf.frames[self.prev_page].tg_member = self.table.item(
                 self.table.focus())
             self.label.config(text=sf.frames[self.prev_page].tg_member['values']
                               [1] + " " + sf.frames[self.prev_page].tg_member['values'][2])
-        if self.db_table == 'AUTHOR':
+        elif self.db_table == 'AUTHOR':
             sf.frames[self.prev_page].tg_author = self.table.item(
                 self.table.focus())
             self.label.config(text=sf.frames[self.prev_page].tg_author['values']
                               [1] + " " + sf.frames[self.prev_page].tg_author['values'][2])
-        if self.db_table == 'PUBLISHER':
+        elif self.db_table == 'PUBLISHER':
             sf.frames[self.prev_page].tg_publisher = self.table.item(
                 self.table.focus())
             self.label.config(
                 text=sf.frames[self.prev_page].tg_publisher['values'][1])
         sf.show_frame(self.prev_page)
+        self.error_label.config(text="")
         self.target = None
         self.prev_page = None
         self.db_table = None
         self.list = None
         self.cur_page = 0
-        # self.table = None
         self.label = None
 
     def show_page(self, table_name=str, prev_page=tk.Frame, label=tk.Label):
