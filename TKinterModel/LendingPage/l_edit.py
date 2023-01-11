@@ -34,8 +34,7 @@ class LendingEditPage(tk.Frame):
         m.sql_connection.sql_update('LENDING', self.target['values'][0], {'l_return_date': now})
 
         # Update book status
-        m.sql_connection.sql_update("BOOKS", self.target['values'][5], {'b_status': 1})
-
+        m.sql_connection.sql_update("BOOKS", book_id, {'b_status': 1})
 
         # Return user to lending page
         sf.frames[lv.LendingViewPage].refresh()
