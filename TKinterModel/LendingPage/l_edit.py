@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.font as tkf
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.LendingPage.l_view as lv
+import TKinterModel.BookPage.b_view as bv
 import datetime as d
 import __main__ as m
 
@@ -32,11 +33,11 @@ class LendingEditPage(tk.Frame):
 
         # Insert to SQL
         m.sql_connection.sql_update('LENDING', self.target['values'][0], {'l_return_date': now})
-
         # Update book status
-        m.sql_connection.sql_update("BOOKS", self.target['values'][5], {'b_status': 1})
-
+        book_id = m.sql_connection.sql_select('LENDING', 'b_id', {'l_id': self.target['values'][0]})[0][0]
+        m.sql_connection.sql_update('BOOKS', book_id, {'b_status': 1})
 
         # Return user to lending page
+        sf.frames[bv.BookViewPage].refresh()
         sf.frames[lv.LendingViewPage].refresh()
         sf.show_frame(lv.LendingViewPage)
