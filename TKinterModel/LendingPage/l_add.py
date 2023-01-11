@@ -4,6 +4,7 @@ import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.SystemPage.sys_select as ss
 import TKinterModel.LendingPage.l_main as lm
 import TKinterModel.LendingPage.l_view as lv
+import TKinterModel.BookPage.b_view as bv
 import datetime as d
 import __main__ as m
 
@@ -122,4 +123,5 @@ class LendingAddPage(tk.Frame):
 
         # Return user to lending page
         sf.frames[lv.LendingViewPage].refresh()
+        sf.frames[bv.BookViewPage].refresh()
         sf.show_frame(lv.LendingViewPage)
