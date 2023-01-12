@@ -3,6 +3,8 @@ import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.AuthorPublisherPage.ap_main as apm
 import TKinterModel.AuthorPublisherPage.a_view as av
+import TKinterModel.BookPage.b_view as bv
+import TKinterModel.LendingPage.l_view as lv
 import __main__ as m
 
 
@@ -65,5 +67,7 @@ class AuthorAddPage(tk.Frame):
             'AUTHOR', {'a_fname': a_fname, 'a_lname': a_lname})
 
         # Return user to author page
+        sf.frames[bv.BookViewPage].refresh()
+        sf.frames[lv.LendingViewPage].refresh()
         sf.frames[av.AuthorViewPage].refresh()
         sf.show_frame(av.AuthorViewPage)

@@ -2,6 +2,8 @@ import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.AuthorPublisherPage.p_view as pv
+import TKinterModel.BookPage.b_view as bv
+import TKinterModel.LendingPage.l_view as lv
 import __main__ as m
 
 
@@ -43,6 +45,8 @@ class PublisherEditPage(tk.Frame):
         # Empty input field
         self.p_name_entry.delete(0, "end")
         # Return user to publisher page
+        sf.frames[bv.BookViewPage].refresh()
+        sf.frames[lv.LendingViewPage].refresh()
         sf.frames[pv.PublisherViewPage].refresh()
         sf.show_frame(pv.PublisherViewPage)
 

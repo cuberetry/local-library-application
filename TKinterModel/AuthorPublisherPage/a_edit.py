@@ -2,6 +2,8 @@ import tkinter as tk
 import TKinterModel.SystemPage.sys_frame as sf
 import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.AuthorPublisherPage.a_view as av
+import TKinterModel.BookPage.b_view as bv
+import TKinterModel.LendingPage.l_view as lv
 import __main__ as m
 
 
@@ -64,5 +66,7 @@ class AuthorEditPage(tk.Frame):
         self.error_label.config(text=self.error_msg)
 
         # Return user to publisher page
+        sf.frames[bv.BookViewPage].refresh()
+        sf.frames[lv.LendingViewPage].refresh()
         sf.frames[av.AuthorViewPage].refresh()
         sf.show_frame(av.AuthorViewPage)
