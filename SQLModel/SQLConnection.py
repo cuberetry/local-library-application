@@ -66,7 +66,14 @@ class SQLConnection:
                     condition = " AND ".join(condition)
                     self.cursor.execute(f"SELECT {fields} FROM {table_name} WHERE {condition}")
             else:
-                self.cursor.execute(f"SELECT * FROM {table_name}")
+                if conditions == dict:
+                    self.cursor.execute(f"SELECT * FROM {table_name}")
+                else:
+                    condition = list()
+                    for c in conditions:
+                        condition.append(f"{c} = {conditions[c]}")
+                    condition = " AND ".join(condition)
+                    self.cursor.execute(f"SELECT * FROM {table_name} WHERE {condition}")
             return self.cursor.fetchall()
         except (mysql.connector.errors.ProgrammingError, TypeError, Exception) as msg:
             print("ERROR", msg)

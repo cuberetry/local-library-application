@@ -4,6 +4,7 @@ import TKinterModel.SystemPage.sys_home_page as sh
 import TKinterModel.SystemPage.sys_select as ss
 import TKinterModel.LendingPage.l_main as lm
 import TKinterModel.LendingPage.l_view as lv
+import TKinterModel.BookPage.b_view as bv
 import datetime as d
 import __main__ as m
 
@@ -64,7 +65,7 @@ class LendingAddPage(tk.Frame):
 
         # Error message
         self.error_label = tk.Label(self, text=self.error_msg, fg='IndianRed1')
-        self.error_label.pack(padx=10, pady=20)
+        self.error_label.pack(padx=10, pady=2)
 
     def add_to_sql(self):
         # Handling input fields
@@ -77,6 +78,12 @@ class LendingAddPage(tk.Frame):
         mb_id = self.tg_member['values'][0]
         duration = self.d_entry.get()
         now = d.datetime.now()
+
+        if not self.tg_book['values'][3]:
+            self.error_msg = "Book not available for lending!"
+            self.error_label.config(text=self.error_msg)
+            return
+            
 
         try:
             if duration == '':
@@ -102,6 +109,9 @@ class LendingAddPage(tk.Frame):
         m.sql_connection.sql_insert('LENDING',
                                     {'l_start_date': lsd, 'l_due_date': ldd,
                                      'mb_id': mb_id, 'b_id': b_id})
+        # Update book status
+        m.sql_connection.sql_update("BOOKS", self.tg_book['values'][0], {'b_status': 0})
+
 
         # Empty input field
         self.tg_book = None
@@ -113,4 +123,5 @@ class LendingAddPage(tk.Frame):
 
         # Return user to lending page
         sf.frames[lv.LendingViewPage].refresh()
+        sf.frames[bv.BookViewPage].refresh()
         sf.show_frame(lv.LendingViewPage)
