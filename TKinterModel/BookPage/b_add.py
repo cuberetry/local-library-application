@@ -77,14 +77,18 @@ class BookAddPage(tk.Frame):
         bk_name = self.book_name_entry.get()
         bk_des = self.book_des_entry.get("1.0", "end")
 
-        # Check if Book Name is empty
+        # Check if Book Name is empty or too long
         if bk_name == '':
             self.error_msg = "Please fill all the required field(s)!"
             self.error_label.config(text=self.error_msg)
             return
+        if len(bk_name) > 50:
+            self.error_msg = "Name exceeded 50 characters"
+            self.error_label.config(text=self.error_msg)
+            return
         # Limit Book Description input characters
-        elif len(bk_des) > 200:
-            self.error_msg = "Text exceeded 200 characters"
+        if len(bk_des) > 200:
+            self.error_msg = "Description exceeded 200 characters"
             self.error_label.config(text=self.error_msg)
             return
 

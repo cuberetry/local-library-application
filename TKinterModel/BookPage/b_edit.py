@@ -68,10 +68,20 @@ class BookEditPage(tk.Frame):
                                        command=lambda: self.edit_book())
         self.submit_button.pack(padx=10, pady=20)
 
+        self.error_label = tk.Label(self, text='', fg='IndianRed1')
+        self.error_label.pack(padx=10, pady=5)
+
         self.target = None
 
     def edit_book(self):
         edit_dict = dict()
+        if len(self.b_name_entry.get()) > 50:
+            self.error_label.config(text="Name exceeded 50 characters")
+            return
+        if len(self.b_desc_entry.get("1.0", "end")) > 200:
+            self.error_label.config(text="Description exceeded 50 characters")
+            return
+
         if self.b_name_entry.get() != '':
             edit_dict["b_name"] = self.b_name_entry.get()
         if self.b_desc_entry.get("1.0", "end") != '\n':
