@@ -76,6 +76,8 @@ class AuthorViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[ae.AuthorEditPage].target = cur_item
             sf.show_frame(ae.AuthorEditPage)
+            self.error_label.config(text='')
+            return
         self.error_label.config(text='ERROR: Please select an author!')
 
     def delete_item(self):
