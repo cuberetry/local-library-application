@@ -69,12 +69,12 @@ class MemberViewPage(tk.Frame):
         if cur_item['values'] != "":
             sf.frames[me.MemberEditPage].target = cur_item
             sf.show_frame(me.MemberEditPage)
-        self.error_label.config(text='')
+        self.error_label.config(text='Please select a member!')
 
     def delete_item(self):
         cur_item = self.table.item(self.table.focus())
         if cur_item['values'] == '':
-            self.error_label.config(text='ERROR: Please select a member!')
+            self.error_label.config(text='Please select a member!')
             return
         if not m.sql_connection.sql_delete("MEMBERS", cur_item['values'][0]):
             self.error_label.config(text="ERROR: Cannot delete a member with existing lending!")
